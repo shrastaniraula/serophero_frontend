@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color.fromARGB(255, 21, 21, 21),
-      iconTheme: IconThemeData(color: Colors.white),
-    ),
+        backgroundColor: Color.fromARGB(255, 21, 21, 21),
+        iconTheme: IconThemeData(color: Colors.white),
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 22)),
     iconTheme: IconThemeData(color: Colors.white),
 
     // textTheme: TextTheme(T),
@@ -18,7 +18,9 @@ ThemeData darkTheme = ThemeData(
       bodyMedium: const TextStyle(color: Color.fromARGB(255, 232, 232, 232)),
     ),
     colorScheme: const ColorScheme.dark(
-        background: Colors.black,
-        primary: Color.fromRGBO(80, 75, 166, 1),
-        secondary: Color.fromRGBO(155, 149, 255, 1),
-        tertiary: Colors.white));
+      background: Colors.black,
+      primary: Color.fromRGBO(80, 75, 166, 1),
+      secondary: Color.fromRGBO(155, 149, 255, 1),
+      tertiary: Colors.white,
+      primaryContainer: Color.fromRGBO(130, 124, 253, 0.418),
+    ));

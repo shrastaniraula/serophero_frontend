@@ -9,12 +9,17 @@ ThemeData lightTheme = ThemeData(
         backgroundColor: Color.fromARGB(255, 251, 248, 254),
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
-        titleTextStyle: TextStyle(color: Colors.black)),
-    textTheme: GoogleFonts.poppinsTextTheme()
-        .copyWith(headlineSmall: TextStyle(fontSize: 30)),
+        titleTextStyle: TextStyle(color: Colors.black, fontSize: 22)
+        ),
+    textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      headlineSmall: TextStyle(fontSize: 30),
+      bodyMedium: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+    ),
     scaffoldBackgroundColor: const Color.fromARGB(255, 251, 248, 254),
     colorScheme: const ColorScheme.light(
-        background: Colors.black,
-        primary: Color.fromRGBO(80, 75, 166, 1),
-        secondary: Color.fromRGBO(134, 107, 209, 1),
-        tertiary: Colors.black));
+      background: Colors.black,
+      primary: Color.fromRGBO(80, 75, 166, 1),
+      secondary: Color.fromRGBO(134, 107, 209, 1),
+      tertiary: Colors.black,
+      primaryContainer: Color.fromRGBO(212, 210, 255, 0.848),
+    ));

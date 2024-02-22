@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:serophero/features/authentications/verify_otp.dart';
+// import 'package:serophero/features/authentications/verify_otp.dart';
+// import 'package:serophero/features/home/home.dart';
+import 'package:serophero/features/home/navigation.dart';
 import 'package:serophero/themes/dark_theme.dart';
 import 'package:serophero/themes/light_theme.dart';
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: VerifyOtpPage(),
+      home: Navigation(),
     );
   }
 }

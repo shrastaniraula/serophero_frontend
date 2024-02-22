@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:serophero/routes/generated_routes.dart';
 
+// ignore: must_be_immutable
 class HelpText extends StatelessWidget {
   final String firstText;
   final String secondText;
