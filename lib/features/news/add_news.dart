@@ -58,24 +58,26 @@ class _AddNewsState extends State<AddNews> {
                           TextStyle(color: Color.fromARGB(255, 120, 120, 120)),
                       textAlign: TextAlign.center,
                     ),
-                    Container(
-                      height: 200,
-                      width: 300,
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                          'assets/images/onboarding/onboarding1.png'),
-                    ),
+                    // Container(
+                    //   height: 200,
+                    //   width: 300,
+                    //   alignment: Alignment.center,
+                    //   child: Image.asset(
+                    //       'assets/images/onboarding/onboarding1.png'),
+                    // ),
                   ],
                 ),
               ),
               CustomTextFormField(
                 hintText: "News Title",
-                controller: newsTitleController, context: context,
+                controller: newsTitleController,
+                context: context,
               ),
               const SizedBox(height: 20),
               CustomTextFormField(
                 hintText: "Description",
-                controller: newsDescController, context: context,
+                controller: newsDescController,
+                context: context,
               ),
               const SizedBox(height: 20),
               const Padding(
@@ -83,7 +85,7 @@ class _AddNewsState extends State<AddNews> {
                 child: Text("Add Image",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: Color.fromARGB(255, 126, 126, 126),
+                        // color: Color.fromARGB(255, 126, 126, 126),
                         fontWeight: FontWeight.normal,
                         fontFamily: "poppins",
                         fontSize: 18)),
@@ -91,8 +93,7 @@ class _AddNewsState extends State<AddNews> {
               const SizedBox(height: 10),
               ImagePickerWidget(
                 onImageSelected: (File? selectedImage) {
-                  setState(() {
-                  });
+                  setState(() {});
                 },
                 descriptionText: "Add a verifying image",
               ),

@@ -13,41 +13,12 @@ class _NewsListState extends State<NewsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-            ),
-            const Text(
-              "News",
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox()
-          ],
+        title: const Center(
+          child: Text(
+            "News",
+            style: TextStyle(fontSize: 18),
+          ),
         ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color.fromARGB(255, 195, 174, 239),
-        onPressed: () {
-          Navigator.push(
-              context,
-              GeneratedRoute().onGeneratedRoute(
-                const RouteSettings(arguments: '', name: '/add_news'),
-              ));
-        },
-        shape:
-            const StadiumBorder(), // Use StadiumBorder for a rectangular shape
-        label: const Text('Add News'),
-        icon: const Icon(Icons.add), // Tight wrap
       ),
       body: SafeArea(
         child: Column(
@@ -68,7 +39,7 @@ class _NewsListState extends State<NewsList> {
                     height: 120,
                     width: 120,
                     alignment: Alignment.center,
-                    child: Image.asset('assets/images/events/events3.png'),
+                    child: Image.asset('assets/images/events/event1.png'),
                   ),
 
                   Expanded(
@@ -106,7 +77,6 @@ class _NewsListState extends State<NewsList> {
                 ],
               ),
             ),
-            const Divider()
           ],
         ),
       ),

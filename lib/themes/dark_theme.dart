@@ -4,17 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: const AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 21, 21, 21),
-        iconTheme: IconThemeData(color: Colors.white),
-        titleTextStyle: TextStyle(color: Colors.white, fontSize: 22)),
+      backgroundColor: Color.fromARGB(255, 21, 21, 21),
+      iconTheme: IconThemeData(color: Colors.white),
+      titleTextStyle: TextStyle(color: Colors.white, fontSize: 22),
+    ),
     iconTheme: IconThemeData(color: Colors.white),
-
-    // textTheme: TextTheme(T),
     hintColor: const Color.fromARGB(255, 232, 232, 232),
     scaffoldBackgroundColor: Color.fromARGB(255, 21, 21, 21),
     textTheme: GoogleFonts.poppinsTextTheme().copyWith(
       headlineSmall: TextStyle(fontSize: 30),
-      // bodySmall: TextStyle(color: const Color.fromARGB(255, 164, 164, 164)),
+      bodySmall: TextStyle(
+          color: const Color.fromARGB(255, 232, 232, 232), fontSize: 20),
       bodyMedium: const TextStyle(color: Color.fromARGB(255, 232, 232, 232)),
     ),
     colorScheme: const ColorScheme.dark(

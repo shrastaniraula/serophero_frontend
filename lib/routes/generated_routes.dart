@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/navigator.dart';
 import 'package:serophero/features/authentications/login.dart';
 import 'package:serophero/features/authentications/register.dart';
+import 'package:serophero/features/news/add_news.dart';
+import 'package:serophero/features/notifications/notification.dart';
 // import 'package:serophero/screens/profile/view_profile.dart';
 // import 'package:serophero/screens/reports/report.dart';
 
@@ -35,6 +37,8 @@ class GeneratedRoute {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case "/signup":
         return MaterialPageRoute(builder: (_) => SignupPage());
+      case "/notification":
+        return MaterialPageRoute(builder: (_) => Notifications());
       // case "/otp":
       //   // Check if arguments are provided and return the OTP route accordingly
       //   final otp_key =
@@ -72,8 +76,8 @@ class GeneratedRoute {
       //   return MaterialPageRoute(builder: (_) => ViewNews());
       // case "/view_events":
       //   return MaterialPageRoute(builder: (_) => ViewEvent());
-      // case "/add_news":
-      //   return MaterialPageRoute(builder: (_) => AddNews());
+      case "/add_news":
+        return MaterialPageRoute(builder: (_) => AddNews());
       // case "/report":
       //   return MaterialPageRoute(builder: (_) => Report());
       // case "/chat":

@@ -12,19 +12,13 @@ class _EventState extends State<Event> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color.fromARGB(255, 195, 174, 239),
-        onPressed: () {
-          Navigator.push(
-              context,
-              GeneratedRoute().onGeneratedRoute(
-                const RouteSettings(arguments: '', name: '/add_news'),
-              ));
-        },
-        shape:
-            const StadiumBorder(), // Use StadiumBorder for a rectangular shape
-        label: const Text('Add Event'),
-        icon: const Icon(Icons.add), // Tight wrap
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            "Events",
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -88,7 +82,7 @@ class _EventState extends State<Event> {
                 ],
               ),
             ),
-            const Divider()
+            // const Divider()
           ],
         ),
       ),
