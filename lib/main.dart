@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:serophero/features/authentications/login.dart';
-// import 'package:serophero/features/authentications/verify_otp.dart';
-// import 'package:serophero/features/home/home.dart';
+import 'package:provider/provider.dart';
 import 'package:serophero/features/home/navigation.dart';
-import 'package:serophero/themes/dark_theme.dart';
-import 'package:serophero/themes/light_theme.dart';
+import 'package:serophero/themes/theme_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ThemeProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,8 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      // darkTheme: darkTheme,
       home: Navigation(),
     );
   }

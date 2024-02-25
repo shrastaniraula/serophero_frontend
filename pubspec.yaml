@@ -38,6 +38,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   image_picker: ^1.0.7
   flutter_basic_chat_bubble: ^0.2.2+3
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

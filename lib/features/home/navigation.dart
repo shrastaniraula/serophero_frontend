@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:serophero/features/events/event_list.dart';
 import 'package:serophero/features/home/home.dart';
 import 'package:serophero/features/messages/chat_list.dart';
 import 'package:serophero/features/news/news_list.dart';
 import 'package:serophero/routes/generated_routes.dart';
+import 'package:serophero/themes/theme_provider.dart';
 
 class Navigation extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -68,7 +70,7 @@ class _NavigationState extends State<Navigation> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(),
+                      const SizedBox(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -89,11 +91,11 @@ class _NavigationState extends State<Navigation> {
                               )
                             ],
                           ),
-                          SizedBox()
+                          const SizedBox()
                         ],
                       ),
-                      SizedBox(),
-                      SizedBox()
+                      const SizedBox(),
+                      const SizedBox()
                     ],
                   ),
                 ),
@@ -102,45 +104,25 @@ class _NavigationState extends State<Navigation> {
           ),
           Expanded(child: buildDrawerList()),
           ListTile(
-            leading: Icon(
-              Theme.of(context).brightness == Brightness.dark
-                  ? Icons.light_mode
-                  : Icons.dark_mode,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-            ),
+            leading: const Icon(Icons.dark_mode),
             title: Row(
               children: [
-                Text(
-                  Theme.of(context).brightness == Brightness.dark
-                      ? 'Light Mode'
-                      : 'Dark Mode',
-                  style: TextStyle(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Colors.black,
-                  ),
-                ),
+                const Text('Dark Mode'),
                 const Spacer(),
                 Transform.scale(
                   scale: 0.8,
                   child: CupertinoSwitch(
-                    value: Theme.of(context).brightness == Brightness.dark,
-
-                    onChanged: (value) {
-                      setState(() {
-                        // if (value) {
-                        //   Theme.of(context).setBrightness(Brightness.dark);
-                        // } else {
-                        //   Theme.of(context).setBrightness(Brightness.light);
-                        // }
-                      });
-                    },
-                    // activeColor: Colors.white,
-                    // trackColor: Colors.purple.shade300,
-                    // thumbColor: Colors.white,
-                  ),
+                      value: Theme.of(context).brightness == Brightness.dark,
+                      onChanged: (value) {
+                        setState(() {
+                          Provider.of<ThemeProvider>(context, listen: false)
+                              .toggleTheme();
+                        });
+                      },
+                      activeColor: Theme.of(context).colorScheme.secondary
+                      // trackColor: Colors.purple.shade300,
+                      // thumbColor: Colors.white,
+                      ),
                 ),
               ],
             ),
@@ -155,13 +137,14 @@ class _NavigationState extends State<Navigation> {
             child: Center(
               child: ListTile(
                 leading: const Icon(Icons.logout),
-                title: Text('Logout'),
+                title: const Text('Logout'),
                 onTap: () {
                   // Add logout functionality here.
                 },
               ),
             ),
           ),
+          SizedBox(height: 20)
         ],
       ),
     );
@@ -172,10 +155,10 @@ class _NavigationState extends State<Navigation> {
       children: [
         ListTile(
           leading: const Icon(Icons.person),
-          title: Row(
+          title: const Row(
             children: [
-              const Text('View Profile'),
-              const Spacer(),
+              Text('View Profile'),
+              Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -191,10 +174,10 @@ class _NavigationState extends State<Navigation> {
         ),
         ListTile(
           leading: const Icon(Icons.lock),
-          title: Row(
+          title: const Row(
             children: [
-              const Text('Change Password'),
-              const Spacer(),
+              Text('Change Password'),
+              Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -210,10 +193,10 @@ class _NavigationState extends State<Navigation> {
         ),
         ListTile(
           leading: const Icon(Icons.lightbulb),
-          title: Row(
+          title: const Row(
             children: [
-              const Text('Drop Suggestions'),
-              const Spacer(),
+              Text('Drop Suggestions'),
+              Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -230,10 +213,10 @@ class _NavigationState extends State<Navigation> {
         ),
         ListTile(
           leading: const Icon(Icons.payment),
-          title: Row(
+          title: const Row(
             children: [
-              const Text('Payments'),
-              const Spacer(),
+              Text('Payments'),
+              Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -249,10 +232,10 @@ class _NavigationState extends State<Navigation> {
         ),
         ListTile(
           leading: const Icon(Icons.help),
-          title: Row(
+          title: const Row(
             children: [
-              const Text('Help and FAQs'),
-              const Spacer(),
+              Text('Help and FAQs'),
+              Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
