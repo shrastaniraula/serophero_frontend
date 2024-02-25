@@ -12,14 +12,6 @@ class _NewsListState extends State<NewsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "News",
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Column(
           children: [

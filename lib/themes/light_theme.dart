@@ -13,7 +13,7 @@ ThemeData lightTheme = ThemeData(
     textTheme: GoogleFonts.poppinsTextTheme().copyWith(
       headlineSmall: TextStyle(fontSize: 30),
       bodySmall: TextStyle(color: Colors.black, fontSize: 20),
-      bodyMedium: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+      bodyMedium: const TextStyle(color: Colors.black),
     ),
     dividerColor: Color.fromARGB(255, 178, 178, 178),
     scaffoldBackgroundColor: const Color.fromARGB(255, 251, 248, 254),

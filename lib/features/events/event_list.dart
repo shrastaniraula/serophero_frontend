@@ -12,14 +12,6 @@ class _EventState extends State<Event> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Events",
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
       body: SafeArea(
         child: Column(
           children: [
