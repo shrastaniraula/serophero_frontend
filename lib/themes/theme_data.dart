@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+Color small_text_color = const Color.fromARGB(255, 146, 146, 146);
+const TextStyle edit_profile_heading_style =
+    TextStyle(fontSize: 18, color: Color.fromARGB(255, 146, 146, 146));
+TextStyle small_text_style =
+    const TextStyle(fontSize: 13, color: Color.fromARGB(255, 146, 146, 146));
+
 ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     hintColor: const Color.fromARGB(255, 69, 69, 69),
@@ -18,7 +24,7 @@ ThemeData lightTheme = ThemeData(
           color: Colors.black, fontSize: 18, fontWeight: FontWeight.normal),
     ),
     floatingActionButtonTheme:
-        FloatingActionButtonThemeData(foregroundColor: Colors.white),
+        const FloatingActionButtonThemeData(foregroundColor: Colors.white),
     dividerColor: const Color.fromARGB(255, 178, 178, 178),
     scaffoldBackgroundColor: const Color.fromARGB(255, 251, 248, 254),
     colorScheme: const ColorScheme.light(
@@ -34,7 +40,7 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     floatingActionButtonTheme:
-        FloatingActionButtonThemeData(foregroundColor: Colors.black),
+        const FloatingActionButtonThemeData(foregroundColor: Colors.black),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color.fromARGB(255, 21, 21, 21),
       iconTheme: IconThemeData(color: Colors.white),
@@ -57,5 +63,5 @@ ThemeData darkTheme = ThemeData(
       secondary: Color.fromRGBO(155, 149, 255, 1),
       tertiary: Colors.white,
       primaryContainer: Color.fromRGBO(130, 124, 253, 0.418),
-      onPrimary: Color.fromARGB(255, 194, 194, 194), 
+      onPrimary: Color.fromARGB(255, 194, 194, 194),
     ));

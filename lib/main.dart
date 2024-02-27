@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:serophero/features/home/navigation.dart';
+import 'package:serophero/features/profile/edit_profile.dart';
+import 'package:serophero/features/reports/report.dart';
+import 'package:serophero/themes/theme_data.dart';
 import 'package:serophero/themes/theme_provider.dart';
 
 void main() {

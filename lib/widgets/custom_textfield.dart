@@ -65,7 +65,8 @@ class CustomTextFormField extends StatelessWidget {
         width: width ?? double.maxFinite,
         child: TextFormField(
           controller: controller,
-          style: textStyle,
+          style: textStyle ??
+              TextStyle(color: Theme.of(context).colorScheme.tertiary),
           onTapOutside: (event) => FocusScope.of(context).unfocus(),
           obscureText: obscureText!,
           textInputAction: textInputAction,
@@ -93,7 +94,6 @@ class CustomTextFormField extends StatelessWidget {
               fontSize: 18,
             ),
         prefixIcon: prefix,
-      
         prefixIconConstraints: prefixConstraints,
         suffixIcon: suffix,
         suffixIconConstraints: suffixConstraints,

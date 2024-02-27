@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:serophero/routes/generated_routes.dart';
+import 'package:serophero/themes/theme_data.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 
 class EditProfile extends StatefulWidget {
@@ -60,13 +61,11 @@ class _EditProfileState extends State<EditProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "Click any fields to edit ",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 120, 120, 120)),
+                          style: small_text_style,
                         ),
-                        Icon(Icons.edit,
-                            size: 18, color: Color.fromARGB(255, 120, 120, 120))
+                        Icon(Icons.edit, size: 18, color: small_text_color)
                       ],
                     ),
                     const SizedBox(height: 20),
@@ -82,22 +81,16 @@ class _EditProfileState extends State<EditProfile> {
                 const SizedBox(height: 20),
                 buildTextField(
                     context, "First Name", "FirstName", firstNameController),
-                SizedBox(height: 10),
                 buildTextField(
                     context, "Last Name", "Lastname", lastNameController),
-                SizedBox(height: 10),
                 buildTextField(
                     context, "Username", "Username", userNameController),
-                SizedBox(height: 10),
                 buildTextField(
                     context, "Address", "Address", addressController),
-                SizedBox(height: 10),
                 buildTextField(context, "Email Address", "Email Address",
                     emailAddressController),
-                SizedBox(height: 10),
                 buildTextField(context, "Phone Number", "Phone Number",
                     phoneNumberController),
-                const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -151,10 +144,7 @@ class _EditProfileState extends State<EditProfile> {
       children: [
         Text(
           text,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          style: edit_profile_heading_style,
         ),
         CustomTextFormField(
           hintText: textHint,
@@ -165,6 +155,7 @@ class _EditProfileState extends State<EditProfile> {
               .bodyLarge
               ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
         ),
+        const SizedBox(height: 20)
       ],
     );
   }
