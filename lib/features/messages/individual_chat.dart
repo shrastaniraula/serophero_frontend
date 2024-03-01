@@ -69,20 +69,21 @@ Widget _buildMessageEditText(BuildContext context) {
   return Padding(
       padding: const EdgeInsets.only(left: 21, right: 20, bottom: 17),
       child: CustomSearchView(
-          // controller: messageEditTextController,
-          hintText: "Type a message ...",
-          suffix: Container(
-            padding: const EdgeInsets.fromLTRB(9, 9, 7, 9),
-            margin: const EdgeInsets.fromLTRB(12, 4, 8, 4),
-            decoration: BoxDecoration(
-                color: const Color(0XFFFFBE40),
-                borderRadius: BorderRadius.circular(17)),
-            child: const Icon(
-              Icons.send,
-              color: Colors.black,
-            ),
+        // controller: messageEditTextController,
+        hintText: "Type a message ...",
+        suffix: Container(
+          padding: const EdgeInsets.fromLTRB(9, 9, 7, 9),
+          margin: const EdgeInsets.fromLTRB(12, 4, 8, 4),
+          decoration: BoxDecoration(
+              color: const Color(0XFFFFBE40),
+              borderRadius: BorderRadius.circular(17)),
+          child: const Icon(
+            Icons.send,
+            color: Colors.black,
           ),
-          suffixConstraints: const BoxConstraints(maxHeight: 42),
-          contentPadding:
-              const EdgeInsets.only(left: 15, top: 13, bottom: 13)));
+        ),
+        suffixConstraints: const BoxConstraints(maxHeight: 42),
+        contentPadding: const EdgeInsets.only(left: 15, top: 13, bottom: 13),
+        context: context,
+      ));
 }

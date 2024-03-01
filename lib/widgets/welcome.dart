@@ -16,7 +16,7 @@ class WelcomeMessage extends StatelessWidget {
               height: 50,
               width: 50,
               color: Theme.of(context).colorScheme.tertiary,
-              image: AssetImage("assets/images/logos/communiti.png"),
+              image: AssetImage("assets/logos/communiti.png"),
             ),
             Text(
               "SeroPhero",

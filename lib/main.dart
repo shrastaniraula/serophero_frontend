@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:serophero/features/authentications/data/login/login_repo.dart';
+import 'package:serophero/features/authentications/login.dart';
 import 'package:serophero/features/home/navigation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:serophero/themes/theme_provider.dart';
+
+import 'features/authentications/bloc/login/login_bloc.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -14,12 +20,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: Provider.of<ThemeProvider>(context).themeData,
-      // darkTheme: darkTheme,
-      home: Navigation(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(loginRepository: LoginRepository()),
+          child: Container(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: Provider.of<ThemeProvider>(context).themeData,
+        // darkTheme: darkTheme,
+        home: const LoginPage(),
+      ),
     );
   }
 }

@@ -19,6 +19,7 @@ import 'package:serophero/features/authentications/password_reset.dart';
 import 'package:serophero/features/authentications/register.dart';
 import 'package:serophero/features/business/business_directories.dart';
 import 'package:serophero/features/events/view_event.dart';
+import 'package:serophero/features/home/navigation.dart';
 import 'package:serophero/features/news/add_news.dart';
 import 'package:serophero/features/news/view_news.dart';
 import 'package:serophero/features/notifications/notification.dart';
@@ -42,6 +43,8 @@ class GeneratedRoute {
         return MaterialPageRoute(builder: (_) => SignupPage());
       case "/notification":
         return MaterialPageRoute(builder: (_) => Notifications());
+      case "/home":
+        return MaterialPageRoute(builder: (_) => Navigation());
       // case "/otp":
       //   // Check if arguments are provided and return the OTP route accordingly
       //   final otp_key =
