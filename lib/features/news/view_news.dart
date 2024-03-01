@@ -14,27 +14,12 @@ class _ViewNewsState extends State<ViewNews> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              "News",
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(),
-          ],
+        title: const Center(
+          child: Text(
+            "News",
+            style: TextStyle(fontSize: 18),
+          ),
         ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
           child: Padding(
@@ -52,7 +37,7 @@ class _ViewNewsState extends State<ViewNews> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage("assets/images/events/event1.png"),
                   fit: BoxFit.cover,
                 ),

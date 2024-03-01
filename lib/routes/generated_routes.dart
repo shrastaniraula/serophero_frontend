@@ -15,9 +15,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/navigator.dart';
 import 'package:serophero/features/authentications/login.dart';
+import 'package:serophero/features/authentications/password_reset.dart';
 import 'package:serophero/features/authentications/register.dart';
+import 'package:serophero/features/business/business_directories.dart';
+import 'package:serophero/features/events/view_event.dart';
 import 'package:serophero/features/news/add_news.dart';
+import 'package:serophero/features/news/view_news.dart';
 import 'package:serophero/features/notifications/notification.dart';
+import 'package:serophero/features/profile/edit_profile.dart';
 // import 'package:serophero/screens/profile/view_profile.dart';
 // import 'package:serophero/screens/reports/report.dart';
 
@@ -27,12 +32,10 @@ import 'package:serophero/features/notifications/notification.dart';
 class GeneratedRoute {
   Route onGeneratedRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case "/":
-        return MaterialPageRoute(builder: (_) => LoginPage());
+      // case "/":
+      //   return MaterialPageRoute(builder: (_) => LoginPage());
       // case "/onboarding":
       //   return MaterialPageRoute(builder: (_) => OnBoarding());
-      // case "/home":
-      //   return MaterialPageRoute(builder: (_) => Home());
       case "/login":
         return MaterialPageRoute(builder: (_) => LoginPage());
       case "/signup":
@@ -52,9 +55,13 @@ class GeneratedRoute {
       //       email: email ?? '',
       //     ),
       //   );
+      case "/change_password":
+        return MaterialPageRoute(builder: (_) => ChangePassword());
 
-      // case "/directories":
-      //   return MaterialPageRoute(builder: (_) => BusinessDirectories());
+      case "/directories":
+        return MaterialPageRoute(builder: (_) => Directories());
+      case "/edit_profile":
+        return MaterialPageRoute(builder: (_) => EditProfile());
       // case "/view_profile":
       //   final user = (routeSettings.arguments as Map<String, dynamic>)['user'];
       //   final business =
@@ -72,10 +79,10 @@ class GeneratedRoute {
       //   return MaterialPageRoute(builder: (_) => Event());
       // case "/news_list":
       //   return MaterialPageRoute(builder: (_) => NewsList());
-      // case "/view_news":
-      //   return MaterialPageRoute(builder: (_) => ViewNews());
-      // case "/view_events":
-      //   return MaterialPageRoute(builder: (_) => ViewEvent());
+      case "/view_news":
+        return MaterialPageRoute(builder: (_) => ViewNews());
+      case "/view_events":
+        return MaterialPageRoute(builder: (_) => ViewEvent());
       case "/add_news":
         return MaterialPageRoute(builder: (_) => AddNews());
       // case "/report":

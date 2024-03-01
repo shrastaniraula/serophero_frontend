@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:serophero/themes/theme_data.dart';
 
 class CustomSearchView extends StatelessWidget {
   CustomSearchView({
@@ -23,6 +24,7 @@ class CustomSearchView extends StatelessWidget {
     this.filled = true,
     this.validator,
     this.onChanged,
+    required this.context,
   }) : super(
           key: key,
         );
@@ -67,23 +69,28 @@ class CustomSearchView extends StatelessWidget {
 
   final Function(String)? onChanged;
 
+  final BuildContext context;
+
   @override
   Widget build(BuildContext context) {
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
-            child: searchViewWidget,
+            child: searchViewWidget(context),
           )
-        : searchViewWidget;
+        : searchViewWidget(context);
   }
 
-  Widget get searchViewWidget => SizedBox(
+  Widget searchViewWidget(BuildContext context) => SizedBox(
         width: width ?? (double.maxFinite) - 20,
+        height: 100,
         child: TextFormField(
           controller: controller,
           focusNode: focusNode ?? null,
           autofocus: autofocus!,
-          style: textStyle ?? const TextStyle(fontSize: 15),
+          style: textStyle ??
+              TextStyle(
+                  fontSize: 15, color: Theme.of(context).colorScheme.tertiary),
           keyboardType: textInputType,
           maxLines: maxLines ?? 1,
           decoration: decoration,
@@ -97,11 +104,11 @@ class CustomSearchView extends StatelessWidget {
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
         hintStyle: hintStyle ??
-            const TextStyle(
-                color: Color.fromARGB(255, 126, 126, 126),
+            TextStyle(
+                color: small_text_color,
                 fontWeight: FontWeight.normal,
                 fontFamily: "poppins",
-                fontSize: 17),
+                fontSize: 18),
         prefixIcon: const Padding(
           padding: EdgeInsets.all(
             08,
@@ -116,8 +123,7 @@ class CustomSearchView extends StatelessWidget {
               padding: EdgeInsets.only(right: 10),
               child: Icon(
                 Icons.search,
-                color: Colors.black,
-                size: 23,
+                size: 20,
               ),
             ),
         suffixIconConstraints: suffixConstraints ??
@@ -131,29 +137,34 @@ class CustomSearchView extends StatelessWidget {
               top: 5,
               bottom: 5,
             ),
-        fillColor: fillColor ?? Colors.white,
+        fillColor: fillColor ?? Colors.transparent,
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: const BorderSide(
-                color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                // color: Colors.black,
+                color: Theme.of(context).colorScheme.tertiary,
                 width: 1,
               ),
             ),
         enabledBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: const BorderSide(
-                color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.tertiary,
+
+                // color: Colors.black,
                 width: 1,
               ),
             ),
         focusedBorder: borderDecoration ??
             OutlineInputBorder(
-              borderRadius: BorderRadius.circular(50),
-              borderSide: const BorderSide(
-                color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.tertiary,
+
+                // color: Colors.black,
                 width: 1,
               ),
             ),
@@ -163,7 +174,7 @@ class CustomSearchView extends StatelessWidget {
 /// Extension on [CustomSearchView] to facilitate inclusion of all types of border style etc
 extension SearchViewStyleHelper on CustomSearchView {
   static OutlineInputBorder get outlineBlackTL19 => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(15),
         borderSide: const BorderSide(
           color: Colors.black,
           width: 1,

@@ -49,7 +49,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool? filled;
   final FormFieldValidator<String>? validator;
 
-  final BuildContext context; // Store the context
+  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText ?? "",
         hintStyle: hintStyle ??
             TextStyle(
-              // color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.secondary,
               // color: Color.fromARGB(255, 69, 69, 69),
               fontWeight: FontWeight.normal,
               fontFamily: "poppins",

@@ -28,23 +28,26 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                ),
-              ),
-              const Text(
-                'Edit Profile',
-              ),
-              const SizedBox()
-            ],
+          title:
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.pop(context);
+              //       },
+              //       child: const Icon(
+              //         Icons.arrow_back,
+              //       ),
+              //     ),
+              Center(
+            child: const Text(
+              'Edit Profile',
+            ),
           ),
+          //     const SizedBox()
+          //   ],
+          // ),
         ),
         // appBar: AppBar(title: Text('EditProfile')),
         body: SafeArea(

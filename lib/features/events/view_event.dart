@@ -13,27 +13,12 @@ class _ViewEventState extends State<ViewEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-            ),
-            const Text(
-              "Events",
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(),
-          ],
+        title: const Center(
+          child: Text(
+            "Events",
+            style: TextStyle(fontSize: 18),
+          ),
         ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
           child: Padding(

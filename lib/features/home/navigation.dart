@@ -166,10 +166,15 @@ class _NavigationState extends State<Navigation> {
             ],
           ),
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const ViewProfilePage()),
-            // );
+            Navigator.push(
+              context,
+              GeneratedRoute().onGeneratedRoute(
+                const RouteSettings(
+                  arguments: '',
+                  name: '/edit_profile',
+                ),
+              ),
+            );
           },
         ),
         ListTile(
@@ -185,10 +190,15 @@ class _NavigationState extends State<Navigation> {
             ],
           ),
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const ChangePasswordPage()),
-            // );
+            Navigator.push(
+              context,
+              GeneratedRoute().onGeneratedRoute(
+                const RouteSettings(
+                  arguments: '',
+                  name: '/change_password',
+                ),
+              ),
+            );
           },
         ),
         ListTile(
@@ -422,11 +432,24 @@ class _NavigationState extends State<Navigation> {
           ),
           Row(
             children: [
-              Image(
-                height: 28,
-                width: 28,
-                color: Theme.of(context).colorScheme.tertiary,
-                image: const AssetImage("assets/logos/search.png"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    GeneratedRoute().onGeneratedRoute(
+                      const RouteSettings(
+                        arguments: '',
+                        name: '/directories',
+                      ),
+                    ),
+                  );
+                },
+                child: Image(
+                  height: 28,
+                  width: 28,
+                  color: Theme.of(context).colorScheme.tertiary,
+                  image: const AssetImage("assets/logos/search.png"),
+                ),
               ),
               const SizedBox(width: 15),
               GestureDetector(

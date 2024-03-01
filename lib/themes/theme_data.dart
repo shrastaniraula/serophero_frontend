@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Color small_text_color = const Color.fromARGB(255, 146, 146, 146);
-const TextStyle edit_profile_heading_style =
-    TextStyle(fontSize: 18, color: Color.fromARGB(255, 146, 146, 146));
-TextStyle small_text_style =
-    const TextStyle(fontSize: 13, color: Color.fromARGB(255, 146, 146, 146));
+Color small_text_color =
+    const Color.fromARGB(255, 146, 146, 146); //for grey colour
+const TextStyle edit_profile_heading_style = TextStyle(
+    fontSize: 18,
+    color: Color.fromARGB(
+        255, 146, 146, 146)); //used for labels in editing profile page
+TextStyle small_text_style = const TextStyle(
+    fontSize: 13,
+    color: Color.fromARGB(255, 146, 146, 146)); //for small text structure
 
 ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
