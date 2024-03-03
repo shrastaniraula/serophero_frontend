@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serophero/features/home/bloc/home_bloc.dart';
 import 'package:serophero/routes/generated_routes.dart';
 
 class Home extends StatefulWidget {
@@ -10,37 +12,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final HomeBloc homebloc = HomeBloc();
+
+  @override
+  void initState() {
+    homebloc.add(HomePageOpened());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget._scaffoldKey,
-      // appBar: buildHomeAppBar(context),
-      // drawer: Drawer(
-      //   width: MediaQuery.of(context).size.width / 1.1,
-      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      //   child: Column(
-      //     children: [
-      //       Stack(
-      //         children: [
-      //           ClipPath(
-      //             clipper: CustomClipperDesign(),
-      //             child: Container(
-      //               height: 200,
-      //               color: Theme.of(context).colorScheme.primaryContainer,
-      //             ),
-      //           ),
-      //           SafeArea(
-      //             child: Row(
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               crossAxisAlignment: CrossAxisAlignment.center,
-      //               children: [Text("data")],
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        bloc: homebloc,
+        builder: (BuildContext context, HomeState state) {
+          if (state is TokenExpired) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Token is Expired'),
+              duration: Duration(seconds: 1),
+            ));
+          } else if (state is HomeSuccess) {
+            return Text('${state.userName}');
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 
@@ -64,7 +63,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Text(
                 "Hi, Shrasta",
                 style: Theme.of(context).textTheme.bodySmall,
@@ -79,7 +78,7 @@ class _HomeState extends State<Home> {
                 color: Theme.of(context).colorScheme.tertiary,
                 image: const AssetImage("assets/images/logos/search.png"),
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               GestureDetector(
                 onTap: () {
                   Navigator.push(

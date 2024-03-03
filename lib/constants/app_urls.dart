@@ -3,4 +3,6 @@ class AppUrls {
 
   //endpoints
   static const login = '$baseUrl/user/login/';
+  static const home = '$baseUrl/user/home';
+  static const messageList = '$baseUrl/communication/message_list/';
 }

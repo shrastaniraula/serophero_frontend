@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:serophero/features/authentications/data/login/login_repo.dart';
 import 'package:serophero/features/authentications/login.dart';
-import 'package:serophero/features/home/navigation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serophero/features/messages/chat.dart';
 
 import 'package:serophero/themes/theme_provider.dart';
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: Provider.of<ThemeProvider>(context).themeData,
         // darkTheme: darkTheme,
-        home: const LoginPage(),
+        home: ChatScreen(),
       ),
     );
   }
