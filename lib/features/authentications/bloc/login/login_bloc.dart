@@ -22,10 +22,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         yield LoginSuccess(user: user);
       } catch (error) {
-        print("");
-
-        print(error);
-        print("");
         if (error is DioException) {
           if (error.response != null) {
             final statusCode = error.response!.statusCode;

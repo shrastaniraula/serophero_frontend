@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:serophero/features/events/event_list.dart';
 import 'package:serophero/features/home/home.dart';
-import 'package:serophero/features/messages/chat_list.dart';
+import 'package:serophero/features/chat/chat_list.dart';
 import 'package:serophero/features/news/news_list.dart';
 import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/themes/theme_provider.dart';
@@ -276,6 +276,7 @@ class _NavigationState extends State<Navigation> {
                       : "",
         ),
       ),
+      automaticallyImplyLeading: false,
     );
   }
 

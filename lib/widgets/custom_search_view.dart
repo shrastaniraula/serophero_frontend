@@ -83,7 +83,7 @@ class CustomSearchView extends StatelessWidget {
 
   Widget searchViewWidget(BuildContext context) => SizedBox(
         width: width ?? (double.maxFinite) - 20,
-        height: 100,
+        height: 60,
         child: TextFormField(
           controller: controller,
           focusNode: focusNode ?? null,

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:serophero/constants/app_urls.dart';
+import 'package:serophero/features/events/data/event_model.dart';
+import 'package:serophero/utils/datetime_utils.dart';
 // import 'package:serophero/routes/generated_routes.dart';
 
 class ViewEvent extends StatefulWidget {
-  const ViewEvent({super.key});
+  final EventListModel event;
+  const ViewEvent({super.key, required this.event});
 
   @override
   State<ViewEvent> createState() => _ViewEventState();
@@ -27,7 +31,7 @@ class _ViewEventState extends State<ViewEvent> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //title
-            const Text("Title for event",
+            Text(widget.event.eventTitle,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             //image
@@ -36,8 +40,9 @@ class _ViewEventState extends State<ViewEvent> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/events/event1.png"),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "${AppUrls.baseUrl}/${widget.event.eventImage}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -46,18 +51,21 @@ class _ViewEventState extends State<ViewEvent> {
             Container(
               padding: const EdgeInsets.only(top: 8),
               margin: const EdgeInsets.only(right: 8.0),
-              child: const Text(
-                'Datetime',
+              child: Text(
+                'by ${widget.event.postedBy}, ${DateTimeUtils.formatRelativeTime(widget.event.postedDate)}',
                 style: TextStyle(fontSize: 13, color: Colors.grey),
               ),
             ),
-            const Text(
-              "Location: location",
+            Text(
+              "Location: ${widget.event.eventLocation}",
+            ),
+            Text(
+              "EventDate: ${DateTimeUtils.formatRelativeTime(widget.event.eventDate)}",
             ),
             //desc
-            const Expanded(
+            Expanded(
                 child: Text(
-              "something something",
+              widget.event.eventDescription,
               maxLines: 20,
             )),
             //report

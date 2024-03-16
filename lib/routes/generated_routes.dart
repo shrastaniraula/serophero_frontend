@@ -18,12 +18,14 @@ import 'package:serophero/features/authentications/login.dart';
 import 'package:serophero/features/authentications/password_reset.dart';
 import 'package:serophero/features/authentications/register.dart';
 import 'package:serophero/features/business/business_directories.dart';
+import 'package:serophero/features/chat/chat.dart';
 import 'package:serophero/features/events/view_event.dart';
 import 'package:serophero/features/home/navigation.dart';
 import 'package:serophero/features/news/add_news.dart';
 import 'package:serophero/features/news/view_news.dart';
 import 'package:serophero/features/notifications/notification.dart';
 import 'package:serophero/features/profile/edit_profile.dart';
+import 'package:serophero/features/profile/view_profile.dart';
 // import 'package:serophero/screens/profile/view_profile.dart';
 // import 'package:serophero/screens/reports/report.dart';
 
@@ -65,17 +67,15 @@ class GeneratedRoute {
         return MaterialPageRoute(builder: (_) => Directories());
       case "/edit_profile":
         return MaterialPageRoute(builder: (_) => EditProfile());
-      // case "/view_profile":
-      //   final user = (routeSettings.arguments as Map<String, dynamic>)['user'];
-      //   final business =
-      //       (routeSettings.arguments as Map<String, dynamic>)['business'];
+      case "/view_profile":
+        final userId =
+            (routeSettings.arguments as Map<String, dynamic>)['userId'];
 
-      //   return MaterialPageRoute(
-      //     builder: (_) => ViewProfile(
-      //       user: user,
-      //       business: business ?? Business(id: 0, name: "", description: ""),
-      //     ),
-      //   );
+        return MaterialPageRoute(
+          builder: (_) => ViewProfile(
+            userId: userId,
+          ),
+        );
       // case "/business_registration":
       //   return MaterialPageRoute(builder: (_) => BusinessRegistration());
       // case "/events_list":
@@ -83,11 +83,31 @@ class GeneratedRoute {
       // case "/news_list":
       //   return MaterialPageRoute(builder: (_) => NewsList());
       case "/view_news":
-        return MaterialPageRoute(builder: (_) => ViewNews());
+        final news = (routeSettings.arguments as Map<String, dynamic>)['news'];
+        return MaterialPageRoute(
+            builder: (_) => ViewNews(
+                  news: news,
+                ));
       case "/view_events":
-        return MaterialPageRoute(builder: (_) => ViewEvent());
+        final event =
+            (routeSettings.arguments as Map<String, dynamic>)['event'];
+
+        return MaterialPageRoute(
+            builder: (_) => ViewEvent(
+                  event: event,
+                ));
       case "/add_news":
         return MaterialPageRoute(builder: (_) => AddNews());
+      case "/chat_page":
+        final userId =
+            (routeSettings.arguments as Map<String, dynamic>)['userId'];
+        final myId = (routeSettings.arguments as Map<String, dynamic>)['myId'];
+        return MaterialPageRoute(
+          builder: (_) => ChatScreen(
+            userId: userId,
+            myId: myId,
+          ),
+        );
       // case "/report":
       //   return MaterialPageRoute(builder: (_) => Report());
       // case "/chat":

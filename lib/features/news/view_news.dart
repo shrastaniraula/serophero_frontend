@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:serophero/constants/app_urls.dart';
+import 'package:serophero/features/news/data/news_model.dart';
 import 'package:serophero/routes/generated_routes.dart';
+import 'package:serophero/utils/datetime_utils.dart';
 // import 'package:serophero/routes/generated_routes.dart';
 
 class ViewNews extends StatefulWidget {
-  const ViewNews({super.key});
+  final NewsListModel news;
+
+  const ViewNews({super.key, required this.news});
 
   @override
   State<ViewNews> createState() => _ViewNewsState();
@@ -14,12 +19,7 @@ class _ViewNewsState extends State<ViewNews> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "News",
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
+        title: const Center(child: Text("News")),
       ),
       body: SafeArea(
           child: Padding(
@@ -28,7 +28,7 @@ class _ViewNewsState extends State<ViewNews> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //title
-            const Text("Title for news",
+            Text(widget.news.newsTitle,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             //image
@@ -37,8 +37,9 @@ class _ViewNewsState extends State<ViewNews> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/events/event1.png"),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      "${AppUrls.baseUrl}/${widget.news.newsImage}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -47,15 +48,15 @@ class _ViewNewsState extends State<ViewNews> {
             Container(
               padding: const EdgeInsets.only(top: 8),
               margin: const EdgeInsets.only(right: 8.0),
-              child: const Text(
-                'Datetime',
+              child: Text(
+                'by ${widget.news.username}, ${DateTimeUtils.formatRelativeTime(widget.news.newsDate)}',
                 style: TextStyle(fontSize: 13, color: Colors.grey),
               ),
             ),
             //desc
-            const Expanded(
+            Expanded(
                 child: Text(
-              "something something",
+              widget.news.newsDescription,
               maxLines: 20,
             )),
             //report

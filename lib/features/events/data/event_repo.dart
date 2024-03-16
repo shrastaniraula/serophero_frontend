@@ -1,32 +1,31 @@
 import 'package:dio/dio.dart';
 import 'package:serophero/constants/app_urls.dart';
-import 'package:serophero/features/chat/data/chat_model.dart';
+import 'package:serophero/features/events/data/event_model.dart';
 import 'package:serophero/utils/shared_preferences.dart';
 
-class ChatListRepo {
+class EventListRepo {
   final Dio dio = Dio();
 
-  Future<List<ChatList>> getChatList() async {
+  Future<List<EventListModel>> getEventList() async {
     final token = await SharedUtils.getToken();
 
-    final response = await dio.post(
-      AppUrls.chatList,
+    final response = await dio.get(
+      AppUrls.eventList,
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
-    print(response.data);
 
     if (response.statusCode == 200) {
       final List<dynamic> data = response.data;
 
-      List<ChatList> chatlist_data = [];
+      List<EventListModel> eventlist_data = [];
       for (int i = 0; i < data.length; i++) {
-        // print("chat object");
-        // print(data[i]);
-        ChatList item = ChatList.fromMap(data[i] as Map<String, dynamic>);
-        chatlist_data.add(item);
+        EventListModel item =
+            EventListModel.fromMap(data[i] as Map<String, dynamic>);
+        eventlist_data.add(item);
       }
+      print(eventlist_data);
 
-      return chatlist_data;
+      return eventlist_data;
     } else {
       print("error");
       throw Exception('Failed to load chat list');
