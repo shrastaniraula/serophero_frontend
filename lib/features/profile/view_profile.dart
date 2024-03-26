@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serophero/constants/app_urls.dart';
 import 'package:serophero/features/profile/bloc/view_profile_bloc.dart';
+import 'package:serophero/routes/generated_routes.dart';
 
 class ViewProfile extends StatefulWidget {
   final int userId;
@@ -125,16 +126,30 @@ class _ViewProfileState extends State<ViewProfile> {
                           ),
                         ),
                         const Spacer(),
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 7.4,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer),
-                          child: const Center(
-                            child: Icon(Icons.report_problem_rounded),
+                        GestureDetector(
+                          onTap: () {
+                            print("inside news report page before");
+
+                            Navigator.push(
+                                context,
+                                GeneratedRoute().onGeneratedRoute(
+                                  RouteSettings(arguments: {
+                                    'id': state.user_data.userId,
+                                    'type': 'user'
+                                  }, name: '/report'),
+                                ));
+                          },
+                          child: Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 7.4,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            child: const Center(
+                              child: Icon(Icons.report_problem_rounded),
+                            ),
                           ),
                         ),
                       ],

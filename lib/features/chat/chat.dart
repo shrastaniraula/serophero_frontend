@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -99,11 +100,10 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
+                  child: CustomTextFormField(
                     controller: _textController,
-                    decoration: const InputDecoration(
-                      hintText: 'Type your message...',
-                    ),
+                    hintText: 'Type your message...',
+                    context: context,
                   ),
                 ),
                 IconButton(

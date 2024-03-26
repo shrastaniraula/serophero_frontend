@@ -15,29 +15,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     GestureDetector(
-            //       onTap: () {
-            //         Navigator.pop(context);
-            //       },
-            //       child: const Icon(
-            //         Icons.arrow_back,
-            //       ),
-            //     ),
-            Center(
-          child: const Text(
-            "Change Password",
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
-        //     const SizedBox()
-        //   ],
-        // ),
-      ),
+      appBar: AppBar(title: Center(child: const Text("Change Password"))),
       body: Padding(
           padding: EdgeInsets.only(left: 16.0, right: 16.0),
           child: Column(
@@ -76,7 +54,7 @@ class _ChangePasswordState extends State<ChangePassword> {
               //Button
               CustomElevatedButton(
                 text: "Verify",
-                backgroundColorBtn: const Color.fromRGBO(80, 75, 166, 1),
+                backgroundColorBtn: Theme.of(context).colorScheme.primary,
                 onPressed: () {},
               ),
             ],

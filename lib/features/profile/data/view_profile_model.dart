@@ -12,20 +12,19 @@ class ViewProfileModel {
   final String authorityType;
   final String businessName;
   final String businessDescription;
-
-  ViewProfileModel(
-    this.userId,
-    this.userFullname,
-    this.userName,
-    this.userLocation,
-    this.userContact,
-    this.userEmail,
-    this.userImage,
-    this.userType,
-    this.authorityType,
-    this.businessName,
-    this.businessDescription,
-  );
+  ViewProfileModel({
+    required this.userId,
+    required this.userFullname,
+    required this.userName,
+    required this.userLocation,
+    required this.userContact,
+    required this.userEmail,
+    required this.userImage,
+    required this.userType,
+    required this.authorityType,
+    required this.businessName,
+    required this.businessDescription,
+  });
 
   ViewProfileModel copyWith({
     int? userId,
@@ -41,59 +40,56 @@ class ViewProfileModel {
     String? businessDescription,
   }) {
     return ViewProfileModel(
-      userId ?? this.userId,
-      userFullname ?? this.userFullname,
-      userName ?? this.userName,
-      userLocation ?? this.userLocation,
-      userContact ?? this.userContact,
-      userEmail ?? this.userEmail,
-      userImage ?? this.userImage,
-      userType ?? this.userType,
-      authorityType ?? this.authorityType,
-      businessName ?? this.businessName,
-      businessDescription ?? this.businessDescription,
+      userId: userId ?? this.userId,
+      userFullname: userFullname ?? this.userFullname,
+      userName: userName ?? this.userName,
+      userLocation: userLocation ?? this.userLocation,
+      userContact: userContact ?? this.userContact,
+      userEmail: userEmail ?? this.userEmail,
+      userImage: userImage ?? this.userImage,
+      userType: userType ?? this.userType,
+      authorityType: authorityType ?? this.authorityType,
+      businessName: businessName ?? this.businessName,
+      businessDescription: businessDescription ?? this.businessDescription,
     );
   }
 
   Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-
-    result.addAll({'user_id': userId});
-    result.addAll({'user_fullname': userFullname});
-    result.addAll({'user_name': userName});
-    result.addAll({'user_location': userLocation});
-    result.addAll({'user_contact': userContact});
-    result.addAll({'user_email': userEmail});
-    result.addAll({'user_image': userImage});
-    result.addAll({'user_type': userType});
-    result.addAll({'authority_role': authorityType});
-    result.addAll({'business_name': businessName});
-
-    result.addAll({'business_description': businessDescription});
-
-    return result;
+    return <String, dynamic>{
+      'userId': userId,
+      'userFullname': userFullname,
+      'userName': userName,
+      'userLocation': userLocation,
+      'userContact': userContact,
+      'userEmail': userEmail,
+      'userImage': userImage,
+      'userType': userType,
+      'authorityType': authorityType,
+      'businessName': businessName,
+      'businessDescription': businessDescription,
+    };
   }
 
   factory ViewProfileModel.fromMap(Map<String, dynamic> map) {
     return ViewProfileModel(
-      map['user_id']?.toInt() ?? 0,
-      map['user_fullname'] ?? '',
-      map['user_name'] ?? '',
-      map['user_location'] ?? '',
-      map['user_contact'] ?? '',
-      map['user_email'] ?? '',
-      map['user_image'] ?? '',
-      map['user_type'] ?? '',
-      map['authority_type'] ?? '',
-      map['business_name'],
-      map['business_description'],
+      userId: map['user_id'] as int,
+      userFullname: map['user_fullname'] as String,
+      userName: map['user_name'] as String,
+      userLocation: map['user_location'] as String,
+      userContact: map['user_contact'] as String,
+      userEmail: map['user_email'] as String,
+      userImage: map['user_image'] ?? '',
+      userType: map['user_type'] as String,
+      authorityType: map['authority_role'] ?? '',
+      businessName: map['business_name'] ?? '',
+      businessDescription: map['business_description'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory ViewProfileModel.fromJson(String source) =>
-      ViewProfileModel.fromMap(json.decode(source));
+      ViewProfileModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -101,11 +97,10 @@ class ViewProfileModel {
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant ViewProfileModel other) {
     if (identical(this, other)) return true;
 
-    return other is ViewProfileModel &&
-        other.userId == userId &&
+    return other.userId == userId &&
         other.userFullname == userFullname &&
         other.userName == userName &&
         other.userLocation == userLocation &&

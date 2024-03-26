@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:serophero/features/reports/bloc/report_bloc.dart';
 import 'package:serophero/themes/theme_data.dart';
-// import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Report extends StatefulWidget {
-  const Report({super.key});
+  final int id;
+  final String type;
+
+  const Report({super.key, required this.id, required this.type});
 
   @override
   State<Report> createState() => _ReportState();
@@ -18,19 +22,7 @@ class _ReportState extends State<Report> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_back),
-            ),
-            const Text("Report"),
-            const SizedBox(),
-          ],
-        ),
+        title: const Center(child: Text("Report")),
       ),
       body: SafeArea(
           child: Padding(
@@ -44,7 +36,7 @@ class _ReportState extends State<Report> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             CustomTextFormField(
               hintText: "Description",
               controller: reportDescController,
@@ -54,7 +46,21 @@ class _ReportState extends State<Report> {
             CustomElevatedButton(
                 text: "Submit",
                 backgroundColorBtn: Theme.of(context).colorScheme.primary,
-                onPressed: () {}),
+                onPressed: () {
+                  context.read<ReportBloc>().add(AddReport(
+                      reason: reportDescController.text.trim(),
+                      id: widget.id,
+                      type: widget.type));
+                  reportDescController.clear();
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Reported Successfully'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  });
+                }),
           ],
         ),
       )),

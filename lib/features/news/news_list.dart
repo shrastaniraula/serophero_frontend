@@ -22,8 +22,11 @@ class _NewsListState extends State<NewsList> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
+        newslistbloc.add(NewsPageOPened());
+
     return BlocBuilder<NewsBloc, NewsState>(
       bloc: newslistbloc,
       builder: (BuildContext context, NewsState state) {
@@ -140,6 +143,8 @@ class _NewsListState extends State<NewsList> {
             ),
           );
         }
+        
+
         return const Center(child: CircularProgressIndicator());
       },
     );

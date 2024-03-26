@@ -7,8 +7,8 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class HomeSuccess extends HomeState {
-  final String userName;
-  HomeSuccess({required this.userName});
+  final HomeModel homeData;
+  HomeSuccess({required this.homeData});
 }
 
 class HomeFailure extends HomeState {

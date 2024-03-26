@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             }
           }
           if (state is LoginSuccess) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               GeneratedRoute().onGeneratedRoute(
                 const RouteSettings(arguments: '', name: '/home'),
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     context: context,
                     obscureText: !_showPassword,
                     hintText: "Password",
-                    prefixConstraints: const BoxConstraints(),
+                    // prefixConstraints: const BoxConstraints(),
                     suffix: buildPasswordToggleIcon(),
                   ),
                   const SizedBox(height: 20),

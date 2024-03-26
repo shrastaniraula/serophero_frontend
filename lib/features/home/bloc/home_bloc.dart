@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serophero/features/home/data/home_model.dart';
 import 'package:serophero/features/home/data/home_repo.dart';
 part 'home_event.dart';
 part 'home_state.dart';
@@ -13,9 +14,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is HomePageOpened) {
       emit(HomeLoading());
       try {
-        Response username = await HomeRepo().getUsername();
+        HomeModel homeData = await HomeRepo().getHomeData();
 
-        emit(HomeSuccess(userName: '$username'));
+        emit(HomeSuccess(homeData: homeData));
       } catch (error) {
         if (error is DioException) {
           if (error.response != null) {
@@ -33,6 +34,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 error: "Something went wrong, please try again later."));
           }
         } else {
+          print(error);
           emit(HomeFailure(
               error: "Something went wrong, please try again laterrrr."));
         }

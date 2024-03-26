@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-// import 'package:serophero/routes/generated_routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serophero/features/news/bloc/news_bloc.dart';
+import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:serophero/widgets/image_picker.dart';
@@ -13,35 +15,15 @@ class AddNews extends StatefulWidget {
 }
 
 class _AddNewsState extends State<AddNews> {
-  TextEditingController newsTitleController = new TextEditingController();
-  TextEditingController newsDescController = new TextEditingController();
+  TextEditingController newsTitleController = TextEditingController();
+  TextEditingController newsDescController = TextEditingController();
+  // final addNewsBloc = NewsBloc();
+  File? selectedImage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-            ),
-            const Text(
-              "Add News",
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(),
-          ],
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: AppBar(title: const Center(child: Text("Add News"))),
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.only(right: 16.0, left: 16.0),
@@ -49,22 +31,15 @@ class _AddNewsState extends State<AddNews> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       "Remember to post only truthful news. Your news will be verified by admin. Any suspicious activity can risk you being on blacklist.",
                       style:
                           TextStyle(color: Color.fromARGB(255, 120, 120, 120)),
                       textAlign: TextAlign.center,
                     ),
-                    // Container(
-                    //   height: 200,
-                    //   width: 300,
-                    //   alignment: Alignment.center,
-                    //   child: Image.asset(
-                    //       'assets/images/onboarding/onboarding1.png'),
-                    // ),
                   ],
                 ),
               ),
@@ -90,15 +65,44 @@ class _AddNewsState extends State<AddNews> {
                         fontFamily: "poppins",
                         fontSize: 18)),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               ImagePickerWidget(
                 onImageSelected: (File? selectedImage) {
-                  setState(() {});
+                  setState(() {
+                    this.selectedImage = selectedImage;
+                  });
                 },
                 descriptionText: "Add a verifying image",
               ),
               const SizedBox(height: 20),
-              CustomElevatedButton(text: "Submit", onPressed: () {}),
+              CustomElevatedButton(
+                  text: "Submit",
+                  backgroundColorBtn: Theme.of(context).colorScheme.primary,
+                  onPressed: () {
+                    // addNewsBloc.add(PostNews(
+                    //     description: newsDescController.text.trim(),
+                    //     image: selectedImage,
+                    //     title: newsTitleController.text.trim()));
+                    context.read<NewsBloc>().add(PostNews(
+                        description: newsDescController.text.trim(),
+                        image: selectedImage,
+                        title: newsTitleController.text.trim()));
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('News posted successfully'),
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
+                    });
+
+                    Navigator.push(
+                        context,
+                        GeneratedRoute().onGeneratedRoute(
+                          RouteSettings(name: '/home'),
+                        ));
+                  }),
             ],
           ),
         ),

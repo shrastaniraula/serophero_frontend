@@ -85,10 +85,9 @@ class CustomTextFormField extends StatelessWidget {
 
   InputDecoration get decoration => InputDecoration(
         hintText: hintText ?? "",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         hintStyle: hintStyle ??
             TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              // color: Color.fromARGB(255, 69, 69, 69),
               fontWeight: FontWeight.normal,
               fontFamily: "poppins",
               fontSize: 18,

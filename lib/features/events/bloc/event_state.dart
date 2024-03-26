@@ -19,3 +19,7 @@ final class EventListFailure extends EventState {
 }
 
 final class TokenExpired extends EventState {}
+
+final class EventPostSuccess extends EventState {
+  EventPostSuccess();
+}

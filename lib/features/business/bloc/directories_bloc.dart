@@ -36,6 +36,7 @@ class BusinessBloc extends Bloc<BusinessEvent, BusinessState> {
                 error: "Something went wrong, please try again later."));
           }
         } else {
+          print(error);
           emit(DirectoriesFailure(
               error: "Something went wrong, please try again laterrrr."));
         }

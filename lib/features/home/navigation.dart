@@ -119,10 +119,7 @@ class _NavigationState extends State<Navigation> {
                               .toggleTheme();
                         });
                       },
-                      activeColor: Theme.of(context).colorScheme.secondary
-                      // trackColor: Colors.purple.shade300,
-                      // thumbColor: Colors.white,
-                      ),
+                      activeColor: Theme.of(context).colorScheme.secondary),
                 ),
               ],
             ),
@@ -144,7 +141,7 @@ class _NavigationState extends State<Navigation> {
               ),
             ),
           ),
-          SizedBox(height: 20)
+          const SizedBox(height: 20)
         ],
       ),
     );
@@ -234,10 +231,43 @@ class _NavigationState extends State<Navigation> {
             ],
           ),
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const PaymentsPage()),
-            // );
+            Navigator.push(
+              context,
+              GeneratedRoute().onGeneratedRoute(
+                const RouteSettings(
+                  name: '/payment',
+                ),
+              ),
+            );
+            // KhaltiPaymentGateway khaltiGateway = new KhaltiPaymentGateway();
+
+            // khaltiGateway.paymentGateway(context, 1, 1000, "hello");
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.history),
+          title: const Row(
+            children: [
+              Text('Transaction History'),
+              Spacer(),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+            ],
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              GeneratedRoute().onGeneratedRoute(
+                const RouteSettings(
+                  name: '/transaction_history',
+                ),
+              ),
+            );
+            // KhaltiPaymentGateway khaltiGateway = new KhaltiPaymentGateway();
+
+            // khaltiGateway.paymentGateway(context, 1, 1000, "hello");
           },
         ),
         ListTile(
@@ -477,7 +507,8 @@ class _NavigationState extends State<Navigation> {
         ],
       ),
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     );
   }
 }
+

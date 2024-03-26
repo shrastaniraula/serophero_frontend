@@ -1,17 +1,3 @@
-// import 'package:serophero/data/model/directories_model.dart';
-// import 'package:serophero/screens/business/business_directories.dart';
-// import 'package:serophero/screens/business/business_regsitration.dart';
-// import 'package:serophero/screens/chats/individual_chat.dart';
-// import 'package:serophero/screens/events/event_list.dart';
-// import 'package:serophero/screens/events/view_event.dart';
-// import 'package:serophero/screens/home.dart';
-// import 'package:serophero/screens/loginsignup/login.dart';
-// import 'package:serophero/screens/loginsignup/otp.dart';
-// import 'package:serophero/screens/loginsignup/signup.dart';
-// import 'package:serophero/screens/news/add_news.dart';
-// import 'package:serophero/screens/news/news_list.dart';
-// import 'package:serophero/screens/news/view_news.dart';
-// import 'package:serophero/screens/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/navigator.dart';
 import 'package:serophero/features/authentications/login.dart';
@@ -19,18 +5,17 @@ import 'package:serophero/features/authentications/password_reset.dart';
 import 'package:serophero/features/authentications/register.dart';
 import 'package:serophero/features/business/business_directories.dart';
 import 'package:serophero/features/chat/chat.dart';
+import 'package:serophero/features/events/add_event.dart';
 import 'package:serophero/features/events/view_event.dart';
 import 'package:serophero/features/home/navigation.dart';
 import 'package:serophero/features/news/add_news.dart';
 import 'package:serophero/features/news/view_news.dart';
 import 'package:serophero/features/notifications/notification.dart';
+import 'package:serophero/features/payment/payment_history.dart';
+import 'package:serophero/features/payment/payment_initiation.dart';
 import 'package:serophero/features/profile/edit_profile.dart';
 import 'package:serophero/features/profile/view_profile.dart';
-// import 'package:serophero/screens/profile/view_profile.dart';
-// import 'package:serophero/screens/reports/report.dart';
-
-// import 'package:serophero/login_signup/login.dart';
-// import 'package:serophero/login_signup/register.dart';
+import 'package:serophero/features/reports/report.dart';
 
 class GeneratedRoute {
   Route onGeneratedRoute(RouteSettings routeSettings) {
@@ -67,6 +52,11 @@ class GeneratedRoute {
         return MaterialPageRoute(builder: (_) => Directories());
       case "/edit_profile":
         return MaterialPageRoute(builder: (_) => EditProfile());
+
+      case "/payment":
+        return MaterialPageRoute(builder: (_) => PaymentInitiation());
+      case "/transaction_history":
+        return MaterialPageRoute(builder: (_) => TransactionHistoryPage());
       case "/view_profile":
         final userId =
             (routeSettings.arguments as Map<String, dynamic>)['userId'];
@@ -98,6 +88,8 @@ class GeneratedRoute {
                 ));
       case "/add_news":
         return MaterialPageRoute(builder: (_) => AddNews());
+      case "/add_event":
+        return MaterialPageRoute(builder: (_) => AddEvent());
       case "/chat_page":
         final userId =
             (routeSettings.arguments as Map<String, dynamic>)['userId'];
@@ -106,6 +98,16 @@ class GeneratedRoute {
           builder: (_) => ChatScreen(
             userId: userId,
             myId: myId,
+          ),
+        );
+      case "/report":
+        final id = (routeSettings.arguments as Map<String, dynamic>)['id'];
+        final type = (routeSettings.arguments as Map<String, dynamic>)['type'];
+
+        return MaterialPageRoute(
+          builder: (_) => Report(
+            id: id,
+            type: type,
           ),
         );
       // case "/report":

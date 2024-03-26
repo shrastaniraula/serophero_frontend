@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:serophero/constants/app_urls.dart';
 import 'package:serophero/features/news/data/news_model.dart';
@@ -5,6 +7,29 @@ import 'package:serophero/utils/shared_preferences.dart';
 
 class NewsListRepo {
   final Dio dio = Dio();
+
+  Future<void> addNews(
+      {required String title,
+      required String description,
+      required File? image}) async {
+    final token = await SharedUtils.getToken();
+
+    print("repo");
+
+    try {
+      FormData formData = FormData.fromMap({
+        'news_heading': title,
+        'news_description': description,
+        'news_image': await MultipartFile.fromFile(image!.path),
+      });
+      final response = await dio.post(AppUrls.newsAdd,
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
+          data: formData);
+      print(response.data);
+    } catch (error) {
+      print(error);
+    }
+  }
 
   Future<List<NewsListModel>> getNewsList() async {
     final token = await SharedUtils.getToken();
@@ -25,7 +50,7 @@ class NewsListRepo {
             NewsListModel.fromMap(data[i] as Map<String, dynamic>);
         newslist_data.add(item);
       }
-      // print("hello data here");
+      print(response.data);
 
       return newslist_data;
     } else {

@@ -42,7 +42,7 @@ class NewsListModel {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
+    result.addAll({'news_id': id});
     result.addAll({'news_title': newsTitle});
     result.addAll({'news_description': newsDescription});
     result.addAll({'news_image': newsImage});
@@ -55,7 +55,7 @@ class NewsListModel {
 
   factory NewsListModel.fromMap(Map<String, dynamic> map) {
     return NewsListModel(
-      id: map['id']?.toInt() ?? 0,
+      id: map['news_id']?.toInt() ?? 0,
       newsTitle: map['news_title'] ?? '',
       newsDescription: map['news_description'] ?? '',
       newsImage: map['news_image'] ?? '',

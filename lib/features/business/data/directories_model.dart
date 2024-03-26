@@ -5,14 +5,18 @@ class DirectoriesModel {
   final String username;
   final String userImage;
   final String userType;
-  String? businessName;
+  String businessName;
+  String businessDesc;
+  DateTime businessDate;
 
   DirectoriesModel({
     required this.userId,
     required this.username,
     required this.userImage,
     required this.userType,
-    this.businessName,
+    required this.businessName,
+    required this.businessDesc,
+    required this.businessDate,
   });
 
   DirectoriesModel copyWith({
@@ -21,6 +25,8 @@ class DirectoriesModel {
     String? userImage,
     String? userType,
     String? businessName,
+    String? businessDesc,
+    DateTime? businessDate,
   }) {
     return DirectoriesModel(
       userId: userId ?? this.userId,
@@ -28,6 +34,8 @@ class DirectoriesModel {
       userImage: userImage ?? this.userImage,
       userType: userType ?? this.userType,
       businessName: businessName ?? this.businessName,
+      businessDesc: businessDesc ?? this.businessDesc,
+      businessDate: businessDate ?? this.businessDate,
     );
   }
 
@@ -51,7 +59,11 @@ class DirectoriesModel {
       username: map['user_name'] ?? '',
       userImage: map['user_image'] ?? '',
       userType: map['user_type'] ?? '',
-      businessName: map['business_name'],
+      businessName: map['business_name'] ?? '',
+      businessDesc: map['business_desc'] ?? '',
+      businessDate: map['business_date'] != null
+          ? DateTime.parse(map['business_date'])
+          : DateTime.now(),
     );
   }
 

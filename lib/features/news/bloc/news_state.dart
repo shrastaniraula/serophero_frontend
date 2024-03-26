@@ -19,3 +19,7 @@ final class NewsListFailure extends NewsState {
 }
 
 final class TokenExpired extends NewsState {}
+
+final class NewsPostSuccess extends NewsState {
+  NewsPostSuccess();
+}

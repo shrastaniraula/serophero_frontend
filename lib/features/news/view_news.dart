@@ -70,16 +70,19 @@ class _ViewNewsState extends State<ViewNews> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    print("inside news report page before");
+                    print(widget.news.id);
                     Navigator.push(
                         context,
                         GeneratedRoute().onGeneratedRoute(
-                          const RouteSettings(arguments: '', name: '/report'),
+                          RouteSettings(
+                              arguments: {'id': widget.news.id, 'type': 'news'},
+                              name: '/report'),
                         ));
                   },
                   child: const Text("Report the news",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        // fontSize: 17
                       )),
                 )
               ],
