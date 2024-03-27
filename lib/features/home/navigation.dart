@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:serophero/constants/app_urls.dart';
 import 'package:serophero/features/events/event_list.dart';
 import 'package:serophero/features/home/home.dart';
 import 'package:serophero/features/chat/chat_list.dart';
 import 'package:serophero/features/news/news_list.dart';
 import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/themes/theme_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serophero/features/home/bloc/home_bloc.dart';
 
 class Navigation extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -18,6 +21,8 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
+  final HomeBloc homebloc = HomeBloc();
+
   int CurrentTab = 0;
   final List<Widget> screens = [
     Home(),
@@ -30,31 +35,71 @@ class _NavigationState extends State<Navigation> {
   Widget currentScreen = Home();
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: widget._scaffoldKey,
-      appBar: CurrentTab == 0 ? buildHomeAppBar(context) : buildAppBar(),
-      drawer: CurrentTab == 0 ? buildDrawer(context) : null,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            GeneratedRoute().onGeneratedRoute(
-              const RouteSettings(arguments: '', name: '/add_news'),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: PageStorage(bucket: bucket, child: currentScreen),
-      bottomNavigationBar: buildBottomAppBar(context),
-    );
+  void initState() {
+    homebloc.add(HomePageOpened());
+    super.initState();
   }
 
-  Drawer buildDrawer(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+        bloc: homebloc,
+        builder: (BuildContext context, HomeState state) {
+          if (state is TokenExpired) {
+            Navigator.push(
+                context,
+                GeneratedRoute().onGeneratedRoute(
+                  const RouteSettings(arguments: '', name: '/login'),
+                ));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Token is Expired'),
+              duration: Duration(seconds: 2),
+            ));
+          } else if (state is HomeFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Token is Expired'),
+              duration: Duration(seconds: 2),
+            ));
+          } else if (state is HomeSuccess) {
+            return Scaffold(
+              key: widget._scaffoldKey,
+              appBar: CurrentTab == 0
+                  ? buildHomeAppBar(
+                      context, state.homeData.profile.userFullname)
+                  : buildAppBar(),
+              drawer: CurrentTab == 0
+                  ? buildDrawer(
+                      context,
+                      state.homeData.profile.userFullname,
+                      state.homeData.profile.userEmail,
+                      state.homeData.profile.userImage)
+                  : null,
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    GeneratedRoute().onGeneratedRoute(
+                      const RouteSettings(arguments: '', name: '/add_news'),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.add),
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              body: PageStorage(bucket: bucket, child: currentScreen),
+              bottomNavigationBar: buildBottomAppBar(context),
+            );
+          }
+          return CircularProgressIndicator();
+        });
+  }
+
+  Drawer buildDrawer(
+      BuildContext context, String username, String email, String userImage) {
     return Drawer(
       width: MediaQuery.of(context).size.width / 1.1,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
@@ -74,20 +119,23 @@ class _NavigationState extends State<Navigation> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                               radius: 40,
-                              backgroundImage: AssetImage(
-                                  'assets/images/defaults/no_image_user.png')),
+                              backgroundImage: userImage != ""
+                                  ? NetworkImage("${AppUrls.baseUrl}$userImage")
+                                  : const AssetImage(
+                                          'assets/images/defaults/no_image_user.png')
+                                      as ImageProvider<Object>),
                           Column(
                             // mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Full Name",
+                                username,
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
-                              const Text(
-                                "useremail@gmail.com",
+                              Text(
+                                email,
                               )
                             ],
                           ),
@@ -434,7 +482,7 @@ class _NavigationState extends State<Navigation> {
             )));
   }
 
-  AppBar buildHomeAppBar(BuildContext context) {
+  AppBar buildHomeAppBar(BuildContext context, String username) {
     return AppBar(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -456,7 +504,7 @@ class _NavigationState extends State<Navigation> {
               ),
               const SizedBox(width: 20),
               Text(
-                "Hi, Shrasta",
+                "Hi, ${username}",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
@@ -511,4 +559,3 @@ class _NavigationState extends State<Navigation> {
     );
   }
 }
-

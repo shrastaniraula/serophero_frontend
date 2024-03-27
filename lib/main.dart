@@ -6,6 +6,7 @@ import 'package:serophero/features/authentications/login.dart';
 import 'package:serophero/features/chat/bloc/chat_list_bloc.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:serophero/features/events/bloc/event_bloc.dart';
+import 'package:serophero/features/home/bloc/home_bloc.dart';
 import 'package:serophero/features/news/bloc/news_bloc.dart';
 import 'package:serophero/features/payment/bloc/payment_bloc.dart';
 import 'package:serophero/features/reports/bloc/report_bloc.dart';
@@ -48,6 +49,10 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => ReportBloc(),
+            child: Container(),
+          ),
+          BlocProvider(
+            create: (context) => HomeBloc(),
             child: Container(),
           )
         ],

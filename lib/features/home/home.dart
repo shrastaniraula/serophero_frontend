@@ -166,50 +166,56 @@ class _HomeState extends State<Home> {
                       const SizedBox(height: 20),
                       Column(
                         children: state.homeData.events.map((event) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  GeneratedRoute().onGeneratedRoute(
-                                    RouteSettings(
-                                        arguments: {"event": event},
-                                        name: '/view_events'),
-                                  ));
-                            },
-                            child: Container(
-                              height: 60,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      GeneratedRoute().onGeneratedRoute(
+                                        RouteSettings(
+                                            arguments: {"event": event},
+                                            name: '/view_events'),
+                                      ));
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary
+                                              .withOpacity(
+                                                  0.05), // Shadow color
+                                          spreadRadius: 5, // Spread radius
+                                          blurRadius: 7, // Blur radius
+                                          offset: const Offset(
+                                              0, 3), // Offset of the shadow
+                                        ),
+                                      ],
                                       color: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary
-                                          .withOpacity(0.05), // Shadow color
-                                      spreadRadius: 5, // Spread radius
-                                      blurRadius: 7, // Blur radius
-                                      offset: const Offset(
-                                          0, 3), // Offset of the shadow
+                                          .scaffoldBackgroundColor),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text(
+                                          event.eventTitle,
+                                          style: TextStyle(fontSize: 17),
+                                        ),
+                                        Text(event.eventLocation),
+                                      ],
                                     ),
-                                  ],
-                                  color: Theme.of(context)
-                                      .scaffoldBackgroundColor),
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Text(
-                                      event.eventTitle,
-                                      style: TextStyle(fontSize: 17),
-                                    ),
-                                    Text(event.eventLocation),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(height: 10),
+                            ],
                           );
                         }).toList(),
                       ),
