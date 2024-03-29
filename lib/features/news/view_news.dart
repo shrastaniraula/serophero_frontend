@@ -5,16 +5,11 @@ import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/utils/datetime_utils.dart';
 // import 'package:serophero/routes/generated_routes.dart';
 
-class ViewNews extends StatefulWidget {
+class ViewNews extends StatelessWidget {
   final NewsListModel news;
 
   const ViewNews({super.key, required this.news});
 
-  @override
-  State<ViewNews> createState() => _ViewNewsState();
-}
-
-class _ViewNewsState extends State<ViewNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +23,7 @@ class _ViewNewsState extends State<ViewNews> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //title
-            Text(widget.news.newsTitle,
+            Text(news.newsTitle,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             //image
@@ -39,7 +34,7 @@ class _ViewNewsState extends State<ViewNews> {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: NetworkImage(
-                      "${AppUrls.baseUrl}/${widget.news.newsImage}"),
+                      "${AppUrls.baseUrl}/${news.newsImage}"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -49,14 +44,14 @@ class _ViewNewsState extends State<ViewNews> {
               padding: const EdgeInsets.only(top: 8),
               margin: const EdgeInsets.only(right: 8.0),
               child: Text(
-                'by ${widget.news.username}, ${DateTimeUtils.formatRelativeTime(widget.news.newsDate)}',
+                'by ${news.username}, ${DateTimeUtils.formatRelativeTime(news.newsDate)}',
                 style: TextStyle(fontSize: 13, color: Colors.grey),
               ),
             ),
             //desc
             Expanded(
                 child: Text(
-              widget.news.newsDescription,
+              news.newsDescription,
               maxLines: 20,
             )),
             //report
@@ -71,12 +66,12 @@ class _ViewNewsState extends State<ViewNews> {
                 GestureDetector(
                   onTap: () {
                     print("inside news report page before");
-                    print(widget.news.id);
+                    print(news.id);
                     Navigator.push(
                         context,
                         GeneratedRoute().onGeneratedRoute(
                           RouteSettings(
-                              arguments: {'id': widget.news.id, 'type': 'news'},
+                              arguments: {'id': news.id, 'type': 'news'},
                               name: '/report'),
                         ));
                   },

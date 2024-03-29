@@ -4,6 +4,7 @@ import 'package:serophero/features/authentications/login.dart';
 import 'package:serophero/features/authentications/password_reset.dart';
 import 'package:serophero/features/authentications/register.dart';
 import 'package:serophero/features/business/business_directories.dart';
+import 'package:serophero/features/business/business_regsitration.dart';
 import 'package:serophero/features/chat/chat.dart';
 import 'package:serophero/features/events/add_event.dart';
 import 'package:serophero/features/events/view_event.dart';
@@ -25,11 +26,11 @@ class GeneratedRoute {
       // case "/onboarding":
       //   return MaterialPageRoute(builder: (_) => OnBoarding());
       case "/login":
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       case "/signup":
-        return MaterialPageRoute(builder: (_) => SignupPage());
+        return MaterialPageRoute(builder: (_) => const SignupPage());
       case "/notification":
-        return MaterialPageRoute(builder: (_) => Notifications());
+        return MaterialPageRoute(builder: (_) => const Notifications());
       case "/home":
         return MaterialPageRoute(builder: (_) => Navigation());
       // case "/otp":
@@ -46,12 +47,20 @@ class GeneratedRoute {
       //     ),
       //   );
       case "/change_password":
-        return MaterialPageRoute(builder: (_) => ChangePassword());
+        return MaterialPageRoute(builder: (_) => const ChangePassword());
 
       case "/directories":
-        return MaterialPageRoute(builder: (_) => Directories());
+        return MaterialPageRoute(builder: (_) => const Directories());
       case "/edit_profile":
-        return MaterialPageRoute(builder: (_) => EditProfile());
+        final profile =
+            (routeSettings.arguments as Map<String, dynamic>)['profile'];
+
+        return MaterialPageRoute(
+          builder: (_) => EditProfile(
+            profile: profile,
+          ),
+        );
+      // return MaterialPageRoute(builder: (_) => EditProfile());
 
       case "/payment":
         return MaterialPageRoute(builder: (_) => PaymentInitiation());
@@ -66,8 +75,8 @@ class GeneratedRoute {
             userId: userId,
           ),
         );
-      // case "/business_registration":
-      //   return MaterialPageRoute(builder: (_) => BusinessRegistration());
+      case "/business_registration":
+        return MaterialPageRoute(builder: (_) => const BusinessRegister());
       // case "/events_list":
       //   return MaterialPageRoute(builder: (_) => Event());
       // case "/news_list":
@@ -87,9 +96,9 @@ class GeneratedRoute {
                   event: event,
                 ));
       case "/add_news":
-        return MaterialPageRoute(builder: (_) => AddNews());
+        return MaterialPageRoute(builder: (_) => const AddNews());
       case "/add_event":
-        return MaterialPageRoute(builder: (_) => AddEvent());
+        return MaterialPageRoute(builder: (_) => const AddEvent());
       case "/chat_page":
         final userId =
             (routeSettings.arguments as Map<String, dynamic>)['userId'];

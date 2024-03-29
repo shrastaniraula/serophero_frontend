@@ -10,6 +10,7 @@ import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/themes/theme_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serophero/features/home/bloc/home_bloc.dart';
+import 'package:serophero/features/profile/data/view_profile_model.dart';
 
 class Navigation extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -72,7 +73,8 @@ class _NavigationState extends State<Navigation> {
                       context,
                       state.homeData.profile.userFullname,
                       state.homeData.profile.userEmail,
-                      state.homeData.profile.userImage)
+                      state.homeData.profile.userImage,
+                      state.homeData.profile)
                   : null,
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
@@ -94,12 +96,12 @@ class _NavigationState extends State<Navigation> {
               bottomNavigationBar: buildBottomAppBar(context),
             );
           }
-          return CircularProgressIndicator();
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
         });
   }
 
-  Drawer buildDrawer(
-      BuildContext context, String username, String email, String userImage) {
+  Drawer buildDrawer(BuildContext context, String username, String email,
+      String userImage, ViewProfileModel profile) {
     return Drawer(
       width: MediaQuery.of(context).size.width / 1.1,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
@@ -150,7 +152,7 @@ class _NavigationState extends State<Navigation> {
               ),
             ],
           ),
-          Expanded(child: buildDrawerList()),
+          Expanded(child: buildDrawerList(profile)),
           ListTile(
             leading: const Icon(Icons.dark_mode),
             title: Row(
@@ -195,7 +197,7 @@ class _NavigationState extends State<Navigation> {
     );
   }
 
-  ListView buildDrawerList() {
+  ListView buildDrawerList(ViewProfileModel profile) {
     return ListView(
       children: [
         ListTile(
@@ -214,8 +216,8 @@ class _NavigationState extends State<Navigation> {
             Navigator.push(
               context,
               GeneratedRoute().onGeneratedRoute(
-                const RouteSettings(
-                  arguments: '',
+                RouteSettings(
+                  arguments: {'profile': profile},
                   name: '/edit_profile',
                 ),
               ),
@@ -313,9 +315,27 @@ class _NavigationState extends State<Navigation> {
                 ),
               ),
             );
-            // KhaltiPaymentGateway khaltiGateway = new KhaltiPaymentGateway();
-
-            // khaltiGateway.paymentGateway(context, 1, 1000, "hello");
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.lock),
+          title: const Row(
+            children: [
+              Text('Register a Business'),
+              Spacer(),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+            ],
+          ),
+          onTap: () {
+            Navigator.push(
+                context,
+                GeneratedRoute().onGeneratedRoute(
+                  const RouteSettings(
+                      arguments: '', name: '/business_registration'),
+                ));
           },
         ),
         ListTile(

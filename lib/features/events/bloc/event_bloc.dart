@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'event_event.dart';
 part 'event_state.dart';
 
-
 class EventBloc extends Bloc<EventEvent, EventState> {
   EventBloc() : super(EventListInitial()) {
     on<EventEvent>((event, emit) => getEventList(event, emit));

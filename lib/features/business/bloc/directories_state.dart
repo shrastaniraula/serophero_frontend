@@ -19,3 +19,7 @@ final class DirectoriesFailure extends BusinessState {
 }
 
 final class TokenExpired extends BusinessState {}
+
+final class DirectoriesRegisterSuccess extends BusinessState {
+  DirectoriesRegisterSuccess();
+}

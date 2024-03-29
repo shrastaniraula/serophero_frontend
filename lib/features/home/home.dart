@@ -15,41 +15,13 @@ class _HomeState extends State<Home> {
   final HomeBloc homebloc = HomeBloc();
 
   @override
-  void initState() {
-    homebloc.add(HomePageOpened());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget._scaffoldKey,
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: homebloc,
         builder: (BuildContext context, HomeState state) {
-          if (state is TokenExpired) {
-            Navigator.push(
-                context,
-                GeneratedRoute().onGeneratedRoute(
-                  const RouteSettings(arguments: '', name: '/login'),
-                ));
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Token is Expired'),
-              duration: Duration(seconds: 10),
-            ));
-          } else if (state is HomeFailure) {
-            if (mounted) {
-              // Show SnackBar using ScaffoldMessenger outside the build method
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.error),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
-              });
-            }
-          } else if (state is HomeSuccess) {
+          if (state is HomeSuccess) {
             return Column(
               children: [
                 Stack(
@@ -224,10 +196,43 @@ class _HomeState extends State<Home> {
                 ),
               ],
             );
-          } else {
-            return const Center(child: CircularProgressIndicator());
           }
-          return const Center(child: CircularProgressIndicator());
+          if (state is TokenExpired) {
+            Navigator.push(
+                context,
+                GeneratedRoute().onGeneratedRoute(
+                  const RouteSettings(arguments: '', name: '/login'),
+                ));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Token is Expired'),
+              duration: Duration(seconds: 10),
+            ));
+          }
+          if (state is HomeFailure) {
+            if (mounted) {
+              // Show SnackBar using ScaffoldMessenger outside the build method
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.error),
+                    duration: const Duration(seconds: 1),
+                  ),
+                );
+              });
+            }
+          }
+
+          if (state is HomeLoading) {
+            Center(child: CircularProgressIndicator());
+          }
+          homebloc.add(HomePageOpened());
+
+          return ElevatedButton(
+            child: Text("Retry"),
+            onPressed: () {
+              homebloc.add(HomePageOpened());
+            },
+          );
         },
       ),
     );

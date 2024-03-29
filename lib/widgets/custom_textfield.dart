@@ -24,9 +24,11 @@ class CustomTextFormField extends StatelessWidget {
     this.fillColor,
     this.filled = true,
     this.validator,
-    required this.context, // Add a required BuildContext parameter
+    required this.context,
+    this.readonly, // Add a required BuildContext parameter
   }) : super(key: key);
 
+  final bool? readonly;
   final Alignment? alignment;
   final double? width;
   final TextEditingController? controller;
@@ -64,6 +66,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget textFormFieldWidget(BuildContext context) => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
+          readOnly: readonly ?? false,
           controller: controller,
           style: textStyle ??
               TextStyle(color: Theme.of(context).colorScheme.tertiary),
