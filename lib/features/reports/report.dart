@@ -4,6 +4,7 @@ import 'package:serophero/themes/theme_data.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serophero/widgets/snackbar.dart';
 
 class Report extends StatefulWidget {
   final int id;
@@ -22,7 +23,7 @@ class _ReportState extends State<Report> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Report")),
+        title: Center(child: Text("Report ${widget.type}")),
       ),
       body: SafeArea(
           child: Padding(
@@ -52,14 +53,13 @@ class _ReportState extends State<Report> {
                       id: widget.id,
                       type: widget.type));
                   reportDescController.clear();
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Reported Successfully'),
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                  });
+
+                  MySnackbar.show(
+                    context,
+                    title: "Reported ${widget.type} Successfully",
+                    message: "The ${widget.type} is reported successfully",
+                    type: SnackbarType.success,
+                  );
                 }),
           ],
         ),

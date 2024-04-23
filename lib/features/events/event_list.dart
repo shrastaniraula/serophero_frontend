@@ -28,10 +28,6 @@ class _EventState extends State<Event> {
         bloc: eventlistbloc,
         builder: (BuildContext context, EventState state) {
           if (state is TokenExpired) {
-            // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            //   content: Text('Token is Expired'),
-            //   duration: Duration(seconds: 1),
-            // ));
             WidgetsBinding.instance.addPostFrameCallback((_) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -54,106 +50,125 @@ class _EventState extends State<Event> {
           } else if (state is EventListSuccess) {
             return Scaffold(
               body: SafeArea(
-                child: Column(
-                  children: state.eventlist.map((event) {
-                    return Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                GeneratedRoute().onGeneratedRoute(
-                                  RouteSettings(
-                                      arguments: {"event": event},
-                                      name: '/view_events'),
-                                ));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              // Container for the image
-                              Container(
-                                height: 120,
-                                width: 120,
-                                alignment: Alignment.center,
-                                child: Image.network(
-                                    "${AppUrls.baseUrl}/${event.eventImage}"),
-                              ),
-
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Event title text
-                                    Text(
-                                      event.eventTitle,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.normal),
-                                    ),
-                                    // Description text for events
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width /
-                                          1.45,
-                                      child: Column(
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            event.eventDescription,
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2,
-                                            softWrap: true,
-                                          ),
-                                          Text(
-                                            "Event location: ${event.eventLocation}",
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            // softWrap: true,
-                                          ),
-                                          Text(
-                                            "Event date: ${DateFormat('yyyy-MM-dd').format(event.eventDate)}",
-                                            style:
-                                                const TextStyle(fontSize: 14),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            softWrap: true,
-                                          ),
-                                        ],
+                  child: state.eventlist.isEmpty
+                      ? const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                                child: Text(
+                                    "There are no events that you've been invited to."))
+                          ],
+                        )
+                      : Column(
+                          children: state.eventlist.map((event) {
+                            return Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        GeneratedRoute().onGeneratedRoute(
+                                          RouteSettings(
+                                              arguments: {"event": event},
+                                              name: '/view_events'),
+                                        ));
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      // Container for the image
+                                      Container(
+                                        height: 120,
+                                        width: 120,
+                                        alignment: Alignment.center,
+                                        child: Image.network(
+                                            "${AppUrls.baseUrl}/${event.eventImage}"),
                                       ),
-                                    ),
-                                    // Datetime wdiget
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Container(
-                                        padding: const EdgeInsets.only(top: 8),
-                                        margin:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: Text(
-                                          DateTimeUtils.formatRelativeTime(
-                                              event.postedDate),
-                                          style: const TextStyle(
-                                              fontSize: 13, color: Colors.grey),
+
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // Event title text
+                                            Text(
+                                              event.eventTitle,
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
+                                            // Description text for events
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.45,
+                                              child: Column(
+                                                // mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    event.eventDescription,
+                                                    style: const TextStyle(
+                                                        fontSize: 14),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                    softWrap: true,
+                                                  ),
+                                                  Text(
+                                                    "Event location: ${event.eventLocation}",
+                                                    style: const TextStyle(
+                                                        fontSize: 14),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    // softWrap: true,
+                                                  ),
+                                                  Text(
+                                                    "Event date: ${DateFormat('yyyy-MM-dd').format(event.eventDate)}",
+                                                    style: const TextStyle(
+                                                        fontSize: 14),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 1,
+                                                    softWrap: true,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            // Datetime wdiget
+                                            Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Container(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8),
+                                                margin: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: Text(
+                                                  DateTimeUtils
+                                                      .formatRelativeTime(
+                                                          event.postedDate),
+                                                  style: const TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ),
+                                const SizedBox(height: 10),
+                              ],
+                            );
+                          }).toList(),
+                        )),
             );
           }
           return const Center(child: CircularProgressIndicator());

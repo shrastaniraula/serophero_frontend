@@ -5,6 +5,7 @@ import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:serophero/widgets/help_text.dart';
+import 'package:serophero/widgets/snackbar.dart';
 import 'package:serophero/widgets/welcome.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,13 +26,21 @@ class _LoginPageState extends State<LoginPage> {
         listener: (context, state) {
           if (state is LoginFailure) {
             if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('${state.error}'),
-                duration: Duration(seconds: 1),
-              ));
+              MySnackbar.show(
+                context,
+                title: "Login UnSuccessful",
+                message: state.error,
+                type: SnackbarType.error,
+              );
             }
           }
           if (state is LoginSuccess) {
+            MySnackbar.show(
+              context,
+              title: "Login Successful",
+              message: "Have a good time :)",
+              type: SnackbarType.success,
+            );
             Navigator.pushReplacement(
               context,
               GeneratedRoute().onGeneratedRoute(
@@ -83,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
                     text: "Login",
                     backgroundColorBtn: Theme.of(context).colorScheme.primary,
                     onPressed: () {
-                      // Dispatch the LoginButtonPressed event to the BLoC
                       context.read<LoginBloc>().add(
                             LoginButtonPressed(
                               email: _usernameController.text,
@@ -104,10 +112,21 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: Align(
                       alignment: Alignment.bottomRight,
-                      child: Text(
-                        "Forgot password?",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            GeneratedRoute().onGeneratedRoute(
+                              const RouteSettings(
+                                  arguments: '', name: '/email_reset_pass'),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Forgot password?",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
                       ),
                     ),

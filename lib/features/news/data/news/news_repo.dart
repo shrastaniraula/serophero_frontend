@@ -1,8 +1,7 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:serophero/constants/app_urls.dart';
-import 'package:serophero/features/news/data/news_model.dart';
+import 'package:serophero/features/news/data/news/news_model.dart';
 import 'package:serophero/utils/shared_preferences.dart';
 
 class NewsListRepo {

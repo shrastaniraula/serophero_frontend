@@ -23,5 +23,4 @@ class DirectoryRegisterButtonClicked extends BusinessEvent {
       required this.doc3,
       required this.name,
       required this.description});
-
 }

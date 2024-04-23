@@ -12,12 +12,14 @@ class BaseButton extends StatelessWidget {
       this.width,
       this.margin,
       this.alignment,
+      this.isloading,
       this.color})
       : super(
           key: key,
         );
 
   final String text;
+  final bool? isloading;
 
   final VoidCallback? onPressed;
 

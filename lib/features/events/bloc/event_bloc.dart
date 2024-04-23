@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:serophero/features/events/data/event_model.dart';
 import 'package:serophero/features/events/data/event_repo.dart';
 import 'package:dio/dio.dart';

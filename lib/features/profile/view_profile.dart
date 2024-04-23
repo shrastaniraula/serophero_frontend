@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serophero/constants/app_urls.dart';
 import 'package:serophero/features/profile/bloc/view_profile_bloc.dart';
 import 'package:serophero/routes/generated_routes.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class ViewProfile extends StatefulWidget {
   final int userId;
@@ -67,7 +68,7 @@ class _ViewProfileState extends State<ViewProfile> {
                               radius: 70,
                               backgroundImage: state.user_data.userImage != ""
                                   ? NetworkImage(
-                                      '${AppUrls.baseUrl}/media/${state.user_data.userImage}')
+                                      '${AppUrls.baseUrl}${state.user_data.userImage}')
                                   : const AssetImage(
                                           'assets/images/defaults/no_image_user.png')
                                       as ImageProvider<Object>),
@@ -128,8 +129,6 @@ class _ViewProfileState extends State<ViewProfile> {
                         const Spacer(),
                         GestureDetector(
                           onTap: () {
-                            print("inside news report page before");
-
                             Navigator.push(
                                 context,
                                 GeneratedRoute().onGeneratedRoute(
@@ -161,10 +160,17 @@ class _ViewProfileState extends State<ViewProfile> {
                       subtitle: Text(state.user_data.userLocation),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.phone),
-                      title: const Text("Contact number"),
-                      subtitle: Text(state.user_data.userContact),
-                    ),
+                        leading: const Icon(Icons.phone),
+                        title: const Text("Contact number"),
+                        subtitle: Text(state.user_data.userContact),
+                        onTap: () async {
+                          try {
+                            var number = state.user_data.userContact;
+                            await FlutterPhoneDirectCaller.callNumber(number);
+                          } catch (e) {
+                            print(e);
+                          }
+                        }),
                     ListTile(
                       leading: const Icon(Icons.email),
                       title: const Text("Email address"),

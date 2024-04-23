@@ -11,7 +11,7 @@ class PaymentInitiation extends StatefulWidget {
 
 class _PaymentInitiationState extends State<PaymentInitiation> {
   final BusinessBloc directoriesBloc = BusinessBloc();
-  String selectedUserId = "43";
+  String selectedUserId = "40";
   TextEditingController amountController = TextEditingController();
   TextEditingController remarksController = TextEditingController();
 

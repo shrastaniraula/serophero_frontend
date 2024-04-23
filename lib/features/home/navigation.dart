@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:serophero/constants/app_urls.dart';
+import 'package:serophero/features/authentications/bloc/login/login_bloc.dart';
 import 'package:serophero/features/events/event_list.dart';
 import 'package:serophero/features/home/home.dart';
 import 'package:serophero/features/chat/chat_list.dart';
@@ -85,10 +86,10 @@ class _NavigationState extends State<Navigation> {
                     ),
                   );
                 },
-                child: const Icon(Icons.add),
                 backgroundColor: Theme.of(context).colorScheme.tertiary,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
+                child: const Icon(Icons.add),
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
@@ -96,7 +97,8 @@ class _NavigationState extends State<Navigation> {
               bottomNavigationBar: buildBottomAppBar(context),
             );
           }
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
+          return Scaffold(
+              body: Center(child: const CircularProgressIndicator()));
         });
   }
 
@@ -186,7 +188,16 @@ class _NavigationState extends State<Navigation> {
                 leading: const Icon(Icons.logout),
                 title: const Text('Logout'),
                 onTap: () {
-                  // Add logout functionality here.
+                  context.read<LoginBloc>().add(LogoutButtonPressed());
+                  // SharedUtils.clearToken();
+                  Navigator.push(
+                    context,
+                    GeneratedRoute().onGeneratedRoute(
+                      const RouteSettings(
+                        name: '/login',
+                      ),
+                    ),
+                  );
                 },
               ),
             ),
@@ -224,11 +235,35 @@ class _NavigationState extends State<Navigation> {
             );
           },
         ),
+        // ListTile(
+        //   leading: const Icon(Icons.lock),
+        //   title: const Row(
+        //     children: [
+        //       Text('Change Password'),
+        //       Spacer(),
+        //       Icon(
+        //         Icons.arrow_forward_ios,
+        //         size: 16,
+        //       ),
+        //     ],
+        //   ),
+        //   onTap: () {
+        //     Navigator.push(
+        //       context,
+        //       GeneratedRoute().onGeneratedRoute(
+        //         const RouteSettings(
+        //           arguments: '',
+        //           name: '/change_password',
+        //         ),
+        //       ),
+        //     );
+        //   },
+        // ),
         ListTile(
-          leading: const Icon(Icons.lock),
+          leading: const Icon(Icons.remove_red_eye_outlined),
           title: const Row(
             children: [
-              Text('Change Password'),
+              Text('View My Posts'),
               Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
@@ -242,32 +277,55 @@ class _NavigationState extends State<Navigation> {
               GeneratedRoute().onGeneratedRoute(
                 const RouteSettings(
                   arguments: '',
-                  name: '/change_password',
+                  name: '/personal_news',
                 ),
               ),
             );
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.lightbulb),
-          title: const Row(
-            children: [
-              Text('Drop Suggestions'),
-              Spacer(),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
+        profile.userType == "authority"
+            ? ListTile(
+                leading: const Icon(Icons.lightbulb),
+                title: const Row(
+                  children: [
+                    Text('Look at Suggestions'),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      GeneratedRoute().onGeneratedRoute(
+                        const RouteSettings(
+                            arguments: '', name: '/view_suggestions'),
+                      ));
+                },
+              )
+            : ListTile(
+                leading: const Icon(Icons.lightbulb),
+                title: const Row(
+                  children: [
+                    Text('Drop suggestions'),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      GeneratedRoute().onGeneratedRoute(
+                        const RouteSettings(
+                            arguments: '', name: '/drop_suggestions'),
+                      ));
+                },
               ),
-            ],
-          ),
-          onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //       builder: (context) => const MakeSuggestionsPage()),
-            // );
-          },
-        ),
         ListTile(
           leading: const Icon(Icons.payment),
           title: const Row(

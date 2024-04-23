@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:serophero/features/news/bloc/news_bloc.dart';
+import 'package:serophero/features/news/bloc/news/news_bloc.dart';
 import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:serophero/widgets/image_picker.dart';
+import 'package:serophero/widgets/snackbar.dart';
 
 class AddNews extends StatefulWidget {
   const AddNews({super.key});
@@ -75,34 +76,33 @@ class _AddNewsState extends State<AddNews> {
                 descriptionText: "Add a verifying image",
               ),
               const SizedBox(height: 20),
-              CustomElevatedButton(
-                  text: "Submit",
-                  backgroundColorBtn: Theme.of(context).colorScheme.primary,
-                  onPressed: () {
-                    // addNewsBloc.add(PostNews(
-                    //     description: newsDescController.text.trim(),
-                    //     image: selectedImage,
-                    //     title: newsTitleController.text.trim()));
-                    context.read<NewsBloc>().add(PostNews(
-                        description: newsDescController.text.trim(),
-                        image: selectedImage,
-                        title: newsTitleController.text.trim()));
-
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('News posted successfully'),
-                          duration: Duration(seconds: 1),
-                        ),
-                      );
-                    });
-
-                    Navigator.push(
+              Center(
+                child: CustomElevatedButton(
+                    text: "Submit",
+                    backgroundColorBtn: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      // addNewsBloc.add(PostNews(
+                      //     description: newsDescController.text.trim(),
+                      //     image: selectedImage,
+                      //     title: newsTitleController.text.trim()));
+                      context.read<NewsBloc>().add(PostNews(
+                          description: newsDescController.text.trim(),
+                          image: selectedImage,
+                          title: newsTitleController.text.trim()));
+                      MySnackbar.show(
                         context,
-                        GeneratedRoute().onGeneratedRoute(
-                          RouteSettings(name: '/home'),
-                        ));
-                  }),
+                        title: "News Posted Successfully",
+                        message: "Your news can be seen after admin verifies.",
+                        type: SnackbarType.success,
+                      );
+
+                      Navigator.push(
+                          context,
+                          GeneratedRoute().onGeneratedRoute(
+                            RouteSettings(name: '/home'),
+                          ));
+                    }),
+              ),
             ],
           ),
         ),

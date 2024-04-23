@@ -3,21 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serophero/features/home/bloc/home_bloc.dart';
 import 'package:serophero/routes/generated_routes.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Home({Key? key}) : super(key: key);
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
   final HomeBloc homebloc = HomeBloc();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: widget._scaffoldKey,
+      key: _scaffoldKey,
       body: BlocBuilder<HomeBloc, HomeState>(
         bloc: homebloc,
         builder: (BuildContext context, HomeState state) {
@@ -209,17 +204,15 @@ class _HomeState extends State<Home> {
             ));
           }
           if (state is HomeFailure) {
-            if (mounted) {
-              // Show SnackBar using ScaffoldMessenger outside the build method
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.error),
-                    duration: const Duration(seconds: 1),
-                  ),
-                );
-              });
-            }
+            // Show SnackBar using ScaffoldMessenger outside the build method
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            });
           }
 
           if (state is HomeLoading) {

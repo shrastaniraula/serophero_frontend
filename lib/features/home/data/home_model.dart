@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-
 import 'package:serophero/features/business/data/directories_model.dart';
 import 'package:serophero/features/events/data/event_model.dart';
 import 'package:serophero/features/profile/data/view_profile_model.dart';
@@ -53,13 +51,6 @@ class HomeModel {
               map['event_details']!.map((x) => EventListModel.fromMap(x)))
           : [],
     );
-    // return HomeModel(
-    //   profile: ViewProfileModel.fromMap(map['user_details']),
-    //   businesses: List<DirectoriesModel>.from(
-    //       map['business_details']?.map((x) => DirectoriesModel.fromMap(x))),
-    //   events: List<EventListModel>.from(
-    //       map['event_details']?.map((x) => EventListModel.fromMap(x))),
-    // );
   }
 
   String toJson() => json.encode(toMap());

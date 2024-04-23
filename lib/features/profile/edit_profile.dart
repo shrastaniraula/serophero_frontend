@@ -12,6 +12,8 @@ import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/themes/theme_data.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
+import 'package:serophero/features/home/bloc/home_bloc.dart';
+import 'package:serophero/widgets/snackbar.dart';
 
 class EditProfile extends StatelessWidget {
   final ViewProfileModel profile;
@@ -40,6 +42,9 @@ class EditProfile extends StatelessWidget {
     addressController.text = profile.userLocation;
     emailAddressController.text = profile.userEmail;
     phoneNumberController.text = profile.userContact;
+    businessNameController.text = profile.businessName;
+    businessDescController.text = profile.businessDescription;
+
     String imagepath = profile.userImage;
 
     File? imageFile;
@@ -141,8 +146,7 @@ class EditProfile extends StatelessWidget {
                                           child: Image.network(
                                               cacheHeight: 100,
                                               cacheWidth: 100,
-                                              AppUrls.baseUrl +
-                                                  "/media/emptyimage/empyt.jpg"),
+                                              "${AppUrls.baseUrl}/media/emptyimage/no_image_user.png"),
                                         )),
                         );
                       },
@@ -162,19 +166,18 @@ class EditProfile extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                buildTextField(context, "First Name", "FirstName",
+                buildTextField(context, "Firstname", "enter a firstname",
                     firstNameController, false),
-                buildTextField(context, "Last Name", "Lastname",
+                buildTextField(context, "Lastname", "enter a lastname",
                     lastNameController, false),
-                buildTextField(
-                    context, "Username", "Username", userNameController, false),
-                buildTextField(
-                    context, "Address", "Address", addressController, false),
-                buildTextField(context, "Email Address", "Email Address",
+                buildTextField(context, "Username", "enter a username",
+                    userNameController, false),
+                buildTextField(context, "Address", "enter an address",
+                    addressController, false),
+                buildTextField(context, "Email Address", "enter an email",
                     emailAddressController, true),
-                buildTextField(context, "Phone Number", "Phone Number",
+                buildTextField(context, "Phone Number", "enter a phone number",
                     phoneNumberController, false),
-
                 profile.businessName != ""
                     ? buildTextField(context, "Business Name", "Business Name",
                         businessNameController, false)
@@ -183,61 +186,40 @@ class EditProfile extends StatelessWidget {
                     ? buildTextField(context, "Business Description",
                         "Business Description", businessDescController, false)
                     : Container(),
+                const SizedBox(height: 20),
+                Center(
+                  child: CustomElevatedButton(
+                    text: "Update",
+                    onPressed: () {
+                      context.read<EditProfileBloc>().add(UpdateProfileEvent(
+                          lastname: lastNameController.text.trim(),
+                          firstname: firstNameController.text.trim(),
+                          contact: phoneNumberController.text.trim(),
+                          location: addressController.text.trim(),
+                          username: userNameController.text.trim(),
+                          image: imageFile,
+                          name: businessNameController.text.trim(),
+                          description: businessDescController.text.trim()));
 
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.push(
-                //         context,
-                //         GeneratedRoute().onGeneratedRoute(
-                //           const RouteSettings(
-                //               arguments: '', name: '/business_registration'),
-                //         ));
-                //   },
-                //   child: Container(
-                //     height: 40,
-                //     width: MediaQuery.of(context).size.width,
-                //     decoration: BoxDecoration(
-                //       // shape: BoxShape.circle,
-                //       borderRadius: BorderRadius.circular(10),
+                      final HomeBloc homebloc = HomeBloc();
+                      homebloc.add(HomePageOpened());
 
-                //       color: const Color.fromARGB(255, 242, 242,
-                //           242), // Replace with your desired background color
-                //       boxShadow: [
-                //         BoxShadow(
-                //           color: Colors.black.withOpacity(
-                //               0.1), // Adjust shadow color and opacity as needed
-                //           spreadRadius: 2,
-                //           blurRadius: 6,
-                //           offset:
-                //               const Offset(0, 2), // Adjust the shadow offset
-                //         ),
-                //       ],
-                //     ),
-                //     child: const Center(
-                //         child: Text(
-                //       "Register a business?",
-                //       style: TextStyle(
-                //           color: Color.fromRGBO(40, 25, 82, 1),
-                //           fontSize: 18,
-                //           fontWeight: FontWeight.w500),
-                //     )),
-                //   ),
-                // ),
+                      MySnackbar.show(
+                        context,
+                        title: "Profile Updated Successfully",
+                        message: "Your profile has been updated successfully.",
+                        type: SnackbarType.success,
+                      );
+
+                      Navigator.push(
+                          context,
+                          GeneratedRoute().onGeneratedRoute(
+                            RouteSettings(name: '/home'),
+                          ));
+                    },
+                  ),
+                ),
                 const SizedBox(height: 40),
-                CustomElevatedButton(
-                  text: "Update",
-                  onPressed: () {
-                    context.read<EditProfileBloc>().add(UpdateProfileEvent(
-                        lastname: lastNameController.text.trim(),
-                        firstname: firstNameController.text.trim(),
-                        contact: phoneNumberController.text.trim(),
-                        location: addressController.text.trim(),
-                        username: userNameController.text.trim(),
-                        image: imageFile,
-                        name: businessNameController.text.trim(),
-                        description: businessDescController.text.trim()));
-                  },
-                )
               ],
             ),
           ),

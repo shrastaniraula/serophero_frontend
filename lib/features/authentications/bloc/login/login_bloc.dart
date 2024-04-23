@@ -32,6 +32,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               yield LoginFailure(
                   error:
                       'Please make sure the username and password is correct.');
+            } else if (statusCode == 503) {
+              yield LoginFailure(
+                  error: 'Sorry, this aacount is blacklisted, contact admin.');
             } else {
               yield LoginFailure(error: error.response?.data["message"][0]);
             }

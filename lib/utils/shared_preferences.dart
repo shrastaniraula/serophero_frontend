@@ -4,10 +4,20 @@ class SharedUtils {
   static const String _tokenKey = 'user_token';
 
   // Get saved token from shared preferences
+  // static Future<String> getToken() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(_tokenKey) ?? '';
+  // }
+
   static Future<String> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_tokenKey) ?? '';
   }
+  // String finalToken=''
+
+  // String getFinalToken() async{
+  //  return await  getToken();
+  // }
 
   // Save token to shared preferences
   static Future<void> saveToken(String token) async {

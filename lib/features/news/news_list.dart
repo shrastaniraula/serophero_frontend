@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serophero/constants/app_urls.dart';
-import 'package:serophero/features/news/bloc/news_bloc.dart';
+import 'package:serophero/features/news/bloc/news/news_bloc.dart';
 import 'package:serophero/routes/generated_routes.dart';
 // import 'package:intl/intl.dart';
 import 'package:serophero/utils/datetime_utils.dart';
@@ -22,10 +22,9 @@ class _NewsListState extends State<NewsList> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-        newslistbloc.add(NewsPageOPened());
+    newslistbloc.add(NewsPageOPened());
 
     return BlocBuilder<NewsBloc, NewsState>(
       bloc: newslistbloc,
@@ -143,7 +142,6 @@ class _NewsListState extends State<NewsList> {
             ),
           );
         }
-        
 
         return const Center(child: CircularProgressIndicator());
       },

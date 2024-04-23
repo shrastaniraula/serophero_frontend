@@ -16,8 +16,10 @@ class CustomElevatedButton extends BaseButton {
     double? height,
     double? width,
     Color? backgroundColorBtn,
+    bool? isLoading,
     required String text,
   }) : super(
+            isloading: isLoading,
             text: text,
             onPressed: onPressed,
             buttonStyle: buttonStyle,
@@ -67,15 +69,19 @@ class CustomElevatedButton extends BaseButton {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               leftIcon ?? SizedBox.shrink(),
-              Text(
-                text,
-                style: buttonTextStyle ??
-                    TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Poppins'),
-              ),
+              isloading == true
+                  ? CircularProgressIndicator(
+                      color: Colors.white,
+                    )
+                  : Text(
+                      text,
+                      style: buttonTextStyle ??
+                          TextStyle(
+                              color: Color.fromRGBO(255, 255, 255, 1),
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Poppins'),
+                    ),
               rightIcon ?? SizedBox.shrink(),
             ],
           ),

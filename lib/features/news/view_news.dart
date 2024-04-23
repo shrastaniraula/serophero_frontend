@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:serophero/constants/app_urls.dart';
-import 'package:serophero/features/news/data/news_model.dart';
+import 'package:serophero/features/news/data/news/news_model.dart';
 import 'package:serophero/routes/generated_routes.dart';
 import 'package:serophero/utils/datetime_utils.dart';
 // import 'package:serophero/routes/generated_routes.dart';

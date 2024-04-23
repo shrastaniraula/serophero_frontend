@@ -31,7 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     channel = IOWebSocketChannel.connect(
-        'ws://192.168.1.67:8000/ws/chat/${widget.myId}/${widget.userId}/');
+        'ws://192.168.1.68:8000/ws/chat/${widget.myId}/${widget.userId}/');
 
     // Handle incoming messages
     channel.stream.listen((message) {
@@ -87,8 +87,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color:
-                            messages[index].isMe ? Colors.blue : Colors.green,
+                        color: messages[index].isMe
+                            ? Theme.of(context).colorScheme.primaryContainer
+                            : Colors.blueGrey,
                       ),
                       child: Text(messages[index].text)),
                 );

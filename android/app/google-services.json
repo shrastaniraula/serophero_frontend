@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750238724164",
+    "project_id": "serophero-1f758",
+    "storage_bucket": "serophero-1f758.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750238724164:android:82016682009e4d530d8c11",
+        "android_client_info": {
+          "package_name": "com.example.serophero"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlo4Z1w15JHiwdh60iySIov9_nrqjjoE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

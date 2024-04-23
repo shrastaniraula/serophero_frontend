@@ -15,9 +15,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: const Text("Change Password"))),
+      appBar: AppBar(title: const Center(child: Text("Change Password"))),
       body: Padding(
-          padding: EdgeInsets.only(left: 16.0, right: 16.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
           child: Column(
             children: [
               // Information text
@@ -39,7 +39,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 prefixConstraints: const BoxConstraints(),
                 suffix: buildPasswordToggleIcon(),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               CustomTextFormField(
                 hintText: "Confirm New Password",
@@ -49,7 +49,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 suffix: buildPasswordToggleIcon(),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               //Button
               CustomElevatedButton(

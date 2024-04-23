@@ -8,6 +8,7 @@ import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:serophero/widgets/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:serophero/widgets/snackbar.dart';
 
 class AddEvent extends StatefulWidget {
   const AddEvent({super.key});
@@ -148,34 +149,35 @@ class _AddEventState extends State<AddEvent> {
                 descriptionText: "Add a verifying image",
               ),
               const SizedBox(height: 20),
-              CustomElevatedButton(
-                  text: "Submit",
-                  backgroundColorBtn: Theme.of(context).colorScheme.primary,
-                  onPressed: () {
-                    print(selectedUserIds);
-                    context.read<EventBloc>().add(PostEvents(
-                        eventDescription: eventDescController.text.trim(),
-                        image: selectedImage,
-                        eventHeading: eventTitleController.text.trim(),
-                        eventLocation: eventLocationController.text.trim(),
-                        eventTime: eventTime,
-                        allowed: selectedUserIds));
+              Center(
+                child: CustomElevatedButton(
+                    text: "Submit",
+                    backgroundColorBtn: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      print(selectedUserIds);
+                      context.read<EventBloc>().add(PostEvents(
+                          eventDescription: eventDescController.text.trim(),
+                          image: selectedImage,
+                          eventHeading: eventTitleController.text.trim(),
+                          eventLocation: eventLocationController.text.trim(),
+                          eventTime: eventTime,
+                          allowed: selectedUserIds));
 
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Event posted successfully'),
-                          duration: Duration(seconds: 1),
-                        ),
-                      );
-                    });
-
-                    Navigator.push(
+                      MySnackbar.show(
                         context,
-                        GeneratedRoute().onGeneratedRoute(
-                          RouteSettings(name: '/home'),
-                        ));
-                  }),
+                        title: "Event Posted Successfully",
+                        message:
+                            "Your event can be seen by users who you've given access to.",
+                        type: SnackbarType.success,
+                      );
+
+                      Navigator.push(
+                          context,
+                          GeneratedRoute().onGeneratedRoute(
+                            RouteSettings(name: '/home'),
+                          ));
+                    }),
+              ),
             ],
           ),
         ),
