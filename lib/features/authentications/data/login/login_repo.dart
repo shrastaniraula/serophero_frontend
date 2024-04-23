@@ -1,7 +1,7 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:serophero/features/authentications/data/login/login_model.dart';
-import 'package:serophero/notification_services.dart';
+import 'package:serophero/utils/notification_services.dart';
 import 'package:serophero/utils/notification_token.dart';
 import 'package:serophero/utils/shared_preferences.dart';
 import 'package:serophero/constants/app_urls.dart';

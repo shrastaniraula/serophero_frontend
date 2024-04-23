@@ -18,7 +18,7 @@ import 'package:serophero/features/payment/bloc/payment_bloc.dart';
 import 'package:serophero/features/profile/bloc/edit_profile_bloc.dart';
 import 'package:serophero/features/profile/cubit/image_cubit.dart';
 import 'package:serophero/features/reports/bloc/report_bloc.dart';
-import 'package:serophero/notification_services.dart';
+import 'package:serophero/utils/notification_services.dart';
 import 'package:serophero/suggestions/bloc/suggestions_bloc.dart';
 import 'package:serophero/themes/theme_provider.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
