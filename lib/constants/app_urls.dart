@@ -10,6 +10,7 @@ class AppUrls {
   static const viewProfile = '$baseUrl/user/view_profile/';
   static const home = '$baseUrl/user/home';
   static const chatList = '$baseUrl/communication/message_list/';
+  static const individualChat = '$baseUrl/communication/individual_chat/';
   static const newsList = '$baseUrl/news/news/';
   static const personalNews = '$baseUrl/news/personal_news/';
   static const newsAdd = '$baseUrl/news/news_add/';
@@ -23,4 +24,5 @@ class AppUrls {
   static const updateProfile = '$baseUrl/user/update_profile/';
   static const suggestions = '$baseUrl/communication/suggestions/';
   static const notifications = '$baseUrl/report/notifications/';
+  
 }

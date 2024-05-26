@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:serophero/suggestions/data/suggestions_model.dart';
-import 'package:serophero/suggestions/data/suggestions_repo.dart';
+import 'package:serophero/features/suggestions/data/suggestions_model.dart';
+import 'package:serophero/features/suggestions/data/suggestions_repo.dart';
 
 part 'suggestions_event.dart';
 part 'suggestions_state.dart';

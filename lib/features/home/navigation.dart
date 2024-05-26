@@ -235,30 +235,6 @@ class _NavigationState extends State<Navigation> {
             );
           },
         ),
-        // ListTile(
-        //   leading: const Icon(Icons.lock),
-        //   title: const Row(
-        //     children: [
-        //       Text('Change Password'),
-        //       Spacer(),
-        //       Icon(
-        //         Icons.arrow_forward_ios,
-        //         size: 16,
-        //       ),
-        //     ],
-        //   ),
-        //   onTap: () {
-        //     Navigator.push(
-        //       context,
-        //       GeneratedRoute().onGeneratedRoute(
-        //         const RouteSettings(
-        //           arguments: '',
-        //           name: '/change_password',
-        //         ),
-        //       ),
-        //     );
-        //   },
-        // ),
         ListTile(
           leading: const Icon(Icons.remove_red_eye_outlined),
           title: const Row(
@@ -375,27 +351,29 @@ class _NavigationState extends State<Navigation> {
             );
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.lock),
-          title: const Row(
-            children: [
-              Text('Register a Business'),
-              Spacer(),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-            ],
-          ),
-          onTap: () {
-            Navigator.push(
-                context,
-                GeneratedRoute().onGeneratedRoute(
-                  const RouteSettings(
-                      arguments: '', name: '/business_registration'),
-                ));
-          },
-        ),
+        profile.userType != "business"
+            ? ListTile(
+                leading: const Icon(Icons.lock),
+                title: const Row(
+                  children: [
+                    Text('Register a Business'),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 16,
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      GeneratedRoute().onGeneratedRoute(
+                        const RouteSettings(
+                            arguments: '', name: '/business_registration'),
+                      ));
+                },
+              )
+            : ListTile(),
         ListTile(
           leading: const Icon(Icons.help),
           title: const Row(

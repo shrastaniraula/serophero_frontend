@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serophero/constants/app_urls.dart';
-import 'package:serophero/suggestions/bloc/suggestions_bloc.dart';
+import 'package:serophero/features/suggestions/bloc/suggestions_bloc.dart';
 import 'package:serophero/utils/datetime_utils.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
+
 
 class ViewSuggestions extends StatelessWidget {
   const ViewSuggestions({super.key});

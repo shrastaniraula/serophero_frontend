@@ -8,7 +8,6 @@ import 'package:serophero/features/news/data/news/news_repo.dart';
 part 'news_event.dart';
 part 'news_state.dart';
 
-
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   NewsBloc() : super(NewsListInitial()) {
     on<NewsEvent>((event, emit) => getNewsList(event, emit));

@@ -121,9 +121,9 @@ class _DirectoriesState extends State<Directories> {
                                       Navigator.push(
                                           context,
                                           GeneratedRoute().onGeneratedRoute(
-                                            const RouteSettings(
-                                                arguments: '',
-                                                name: '/chat_page'),
+                                            RouteSettings(arguments: {
+                                              "userId": directories.userId
+                                            }, name: '/chat_page'),
                                           ));
                                     },
                                     child: Image(

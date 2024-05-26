@@ -20,14 +20,12 @@ import 'package:serophero/features/payment/payment_initiation.dart';
 import 'package:serophero/features/profile/edit_profile.dart';
 import 'package:serophero/features/profile/view_profile.dart';
 import 'package:serophero/features/reports/report.dart';
-import 'package:serophero/suggestions/make_suggestions.dart';
-import 'package:serophero/suggestions/view_suggestions.dart';
+import 'package:serophero/features/suggestions/make_suggestions.dart';
+import 'package:serophero/features/suggestions/view_suggestions.dart';
 
 class GeneratedRoute {
   Route onGeneratedRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      // case "/":
-      //   return MaterialPageRoute(builder: (_) => LoginPage());
       // case "/onboarding":
       //   return MaterialPageRoute(builder: (_) => OnBoarding());
       case "/login":
@@ -39,7 +37,6 @@ class GeneratedRoute {
       case "/home":
         return MaterialPageRoute(builder: (_) => Navigation());
       case "/otp":
-        // Check if arguments are provided and return the OTP route accordingly
         final otpKey =
             (routeSettings.arguments as Map<String, dynamic>)['otp_key'];
         final email =
@@ -70,7 +67,6 @@ class GeneratedRoute {
             profile: profile,
           ),
         );
-      // return MaterialPageRoute(builder: (_) => EditProfile());
 
       case "/payment":
         return MaterialPageRoute(builder: (_) => PaymentInitiation());
@@ -115,12 +111,8 @@ class GeneratedRoute {
       case "/chat_page":
         final userId =
             (routeSettings.arguments as Map<String, dynamic>)['userId'];
-        final myId = (routeSettings.arguments as Map<String, dynamic>)['myId'];
         return MaterialPageRoute(
-          builder: (_) => ChatScreen(
-            userId: userId,
-            myId: myId,
-          ),
+          builder: (_) => ChatScreen(userId: userId),
         );
       case "/report":
         final id = (routeSettings.arguments as Map<String, dynamic>)['id'];

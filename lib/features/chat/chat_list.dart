@@ -67,10 +67,9 @@ class _ChatState extends State<Messages> {
                                 Navigator.push(
                                     context,
                                     GeneratedRoute().onGeneratedRoute(
-                                      RouteSettings(arguments: {
-                                        "myId": chat.myId,
-                                        "userId": chat.userId
-                                      }, name: '/chat_page'),
+                                      RouteSettings(
+                                          arguments: {"userId": chat.userId},
+                                          name: '/chat_page'),
                                     ));
                               },
                               child: Row(

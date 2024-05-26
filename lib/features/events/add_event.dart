@@ -40,148 +40,163 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Center(child: Text("Add Events"))),
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.only(right: 16.0, left: 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BlocBuilder<BusinessBloc, BusinessState>(
-                bloc: directoriesBloc,
-                builder: (context, state) {
-                  if (state is DirectoriesSuccess) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text("Select User",
-                            style: TextStyle(
-                                fontSize: 16,
-                                // fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.tertiary)),
-                        const SizedBox(height: 10),
-                        MultiSelectDialogField(
-                          title: Text(
-                            "Select who can view",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          buttonIcon: const Icon(Icons.search),
-                          searchIcon: const Icon(
-                            Icons.search,
-                            size: 20,
-                          ),
-                          chipDisplay: MultiSelectChipDisplay(
-                            chipColor:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            scroll: true,
-                          ),
-                          confirmText: const Text("Okay"),
-                          cancelText: const Text("Cancel"),
-                          searchable: true,
-                          separateSelectedItems: true,
-                          // barrierColor: Colors.amber,
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                          items: state.directorieslist
-                              .map((e) => MultiSelectItem(e.userId, e.username))
-                              .toList(),
-                          listType: MultiSelectListType.LIST,
-                          onConfirm: (values) {
-                            selectedUserIds = values;
-                          },
-                        ),
-                      ],
-                    );
-                  } else if (state is DirectoriesFailure) {
-                    return const Center(child: Text("Failed to load users"));
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-              const SizedBox(height: 10),
-              CustomTextFormField(
-                hintText: "Event Heading",
-                controller: eventTitleController,
-                context: context,
-              ),
-              const SizedBox(height: 20),
-              CustomTextFormField(
-                hintText: "Description",
-                controller: eventDescController,
-                context: context,
-              ),
-              const SizedBox(height: 20),
-              CustomTextFormField(
-                hintText: "Location",
-                controller: eventLocationController,
-                context: context,
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: eventDateController,
-                decoration: const InputDecoration(
-                  labelText: 'Select Date',
-                  suffixIcon: Icon(Icons.calendar_today),
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
-                onTap: () => _selectDate(context),
-                readOnly: true,
-              ),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.only(left: 13.0),
-                child: Text("Add Image",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        // color: Color.fromARGB(255, 126, 126, 126),
-                        fontWeight: FontWeight.normal,
-                        fontFamily: "poppins",
-                        fontSize: 18)),
-              ),
-              const SizedBox(height: 20),
-              ImagePickerWidget(
-                onImageSelected: (File? selectedImage) {
-                  setState(() {
-                    this.selectedImage = selectedImage;
-                  });
-                },
-                descriptionText: "Add a verifying image",
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: CustomElevatedButton(
-                    text: "Submit",
-                    backgroundColorBtn: Theme.of(context).colorScheme.primary,
-                    onPressed: () {
-                      print(selectedUserIds);
-                      context.read<EventBloc>().add(PostEvents(
-                          eventDescription: eventDescController.text.trim(),
-                          image: selectedImage,
-                          eventHeading: eventTitleController.text.trim(),
-                          eventLocation: eventLocationController.text.trim(),
-                          eventTime: eventTime,
-                          allowed: selectedUserIds));
+      body: BlocListener<EventBloc, EventState>(
+        listener: (context, state) {
+          if (state is DirectoriesRegisterSuccess) {
+            MySnackbar.show(
+              context,
+              title: "Event Posted Successfully",
+              message:
+                  "Your event can be seen by users who you've given access to.",
+              type: SnackbarType.success,
+            );
 
-                      MySnackbar.show(
-                        context,
-                        title: "Event Posted Successfully",
-                        message:
-                            "Your event can be seen by users who you've given access to.",
-                        type: SnackbarType.success,
+            Navigator.push(
+                context,
+                GeneratedRoute().onGeneratedRoute(
+                  const RouteSettings(name: '/home'),
+                ));
+          }
+        },
+        child: SafeArea(
+            child: Padding(
+          padding: const EdgeInsets.only(right: 16.0, left: 16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BlocBuilder<BusinessBloc, BusinessState>(
+                  bloc: directoriesBloc,
+                  builder: (context, state) {
+                    if (state is DirectoriesSuccess) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text("Select User",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  // fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.tertiary)),
+                          const SizedBox(height: 10),
+                          MultiSelectDialogField(
+                            title: const Text(
+                              "Select who can view",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            buttonIcon: const Icon(Icons.search),
+                            searchIcon: const Icon(
+                              Icons.search,
+                              size: 20,
+                            ),
+                            chipDisplay: MultiSelectChipDisplay(
+                              chipColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              scroll: true,
+                            ),
+                            confirmText: const Text("Okay"),
+                            cancelText: const Text("Cancel"),
+                            searchable: true,
+                            separateSelectedItems: true,
+                            // barrierColor: Colors.amber,
+                            backgroundColor:
+                                Theme.of(context).scaffoldBackgroundColor,
+                            items: state.directorieslist
+                                .map((e) =>
+                                    MultiSelectItem(e.userId, e.username))
+                                .toList(),
+                            listType: MultiSelectListType.LIST,
+                            onConfirm: (values) {
+                              selectedUserIds = values;
+                            },
+                          ),
+                        ],
                       );
-
-                      Navigator.push(
-                          context,
-                          GeneratedRoute().onGeneratedRoute(
-                            RouteSettings(name: '/home'),
-                          ));
-                    }),
-              ),
-            ],
+                    } else if (state is DirectoriesFailure) {
+                      return const Center(child: Text("Failed to load users"));
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  hintText: "Event Heading",
+                  controller: eventTitleController,
+                  context: context,
+                ),
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  hintText: "Description",
+                  controller: eventDescController,
+                  context: context,
+                ),
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  hintText: "Location",
+                  controller: eventLocationController,
+                  context: context,
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: eventDateController,
+                  decoration: const InputDecoration(
+                    labelText: 'Select Date',
+                    suffixIcon: Icon(Icons.calendar_today),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                  ),
+                  onTap: () => _selectDate(context),
+                  readOnly: true,
+                ),
+                const SizedBox(height: 20),
+                const Padding(
+                  padding: EdgeInsets.only(left: 13.0),
+                  child: Text("Add Image",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          // color: Color.fromARGB(255, 126, 126, 126),
+                          fontWeight: FontWeight.normal,
+                          fontFamily: "poppins",
+                          fontSize: 18)),
+                ),
+                const SizedBox(height: 20),
+                ImagePickerWidget(
+                  onImageSelected: (File? selectedImage) {
+                    setState(() {
+                      this.selectedImage = selectedImage;
+                    });
+                  },
+                  descriptionText: "Add a verifying image",
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: BlocBuilder<EventBloc, EventState>(
+                    builder: (context, state) {
+                      return CustomElevatedButton(
+                          isLoading: state is EventListLoading,
+                          text: "Submit",
+                          backgroundColorBtn:
+                              Theme.of(context).colorScheme.primary,
+                          onPressed: () {
+                            context.read<EventBloc>().add(PostEvents(
+                                eventDescription:
+                                    eventDescController.text.trim(),
+                                image: selectedImage,
+                                eventHeading: eventTitleController.text.trim(),
+                                eventLocation:
+                                    eventLocationController.text.trim(),
+                                eventTime: eventTime,
+                                allowed: selectedUserIds));
+                          });
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      )),
+        )),
+      ),
     );
   }
 

@@ -15,6 +15,10 @@ class HomeRepo {
     print(response.data);
 
     HomeModel homeModelData = HomeModel.fromMap(response.data);
+    await SharedUtils.saveId(homeModelData.profile.userId);
+    String id = await SharedUtils.getId();
+    print("in repo ${id}");
+
     return homeModelData;
   }
 }

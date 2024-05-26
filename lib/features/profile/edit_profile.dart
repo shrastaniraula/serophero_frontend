@@ -69,161 +69,182 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Center(child: Text('Edit Profile'))),
         // appBar: AppBar(title: Text('EditProfile')),
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(right: 16.0, left: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Click any fields to edit ",
-                          style: small_text_style,
-                        ),
-                        Icon(Icons.edit, size: 18, color: small_text_color)
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    BlocBuilder<StoreImageCubit, ImageStorage>(
-                      builder: (context, state) {
-                        return InkWell(
-                          onTap: () async {
-                            List image = await pickImage(ImageSource.gallery);
-                            if (image.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text("You neeed to add an image")));
-                              return;
-                            }
-                            context
-                                .read<StoreImageCubit>()
-                                .addition(image: image[0]);
-                          },
-                          child: Container(
-                              decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
-                              child: profile.userImage != ""
-                                  ? state.image == null
-                                      ? ClipOval(
-                                          child: Image.network(
-                                            // state.image!,
-                                            AppUrls.baseUrl + imagepath,
-                                            cacheHeight: 100,
-                                            cacheWidth: 100,
-                                            // cacheHeight: 100,
-                                            // fit: BoxFit.,
-                                          ),
-                                        )
-                                      : ClipOval(
-                                          child: Image.file(
-                                            state.image!,
-                                            cacheHeight: 100,
-                                            cacheWidth: 100,
-                                            // cacheHeight: 100,
-                                            // fit: BoxFit.,
-                                          ),
-                                        )
-                                  : state.image != null
-                                      ? ClipOval(
-                                          child: Image.file(
-                                            state.image!,
-                                            cacheHeight: 100,
-                                            cacheWidth: 100,
-                                            // cacheHeight: 100,
-                                            // fit: BoxFit.,
-                                          ),
-                                        )
-                                      : ClipOval(
-                                          child: Image.network(
+        body: BlocListener<EditProfileBloc, EditProfileState>(
+          listener: (context, state) {
+            if (state is EditProfileSuccess) {
+              MySnackbar.show(
+                context,
+                title: "Profile Updated Successfully",
+                message: "Your profile has been updated successfully.",
+                type: SnackbarType.success,
+              );
+
+              Navigator.push(
+                  context,
+                  GeneratedRoute().onGeneratedRoute(
+                    RouteSettings(name: '/home'),
+                  ));
+            }
+            if (state is EditProfileFailure) {
+              MySnackbar.show(
+                context,
+                title: "Something went wrong",
+                message:
+                    "Your profile couldnot be updated at the time, Try again later",
+                type: SnackbarType.error,
+              );
+            }
+          },
+          child: SafeArea(
+              child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 16.0, left: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Click any fields to edit ",
+                            style: small_text_style,
+                          ),
+                          Icon(Icons.edit, size: 18, color: small_text_color)
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      BlocBuilder<StoreImageCubit, ImageStorage>(
+                        builder: (context, state) {
+                          return InkWell(
+                            onTap: () async {
+                              List image = await pickImage(ImageSource.gallery);
+                              if (image.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text("You neeed to add an image")));
+                                return;
+                              }
+                              context
+                                  .read<StoreImageCubit>()
+                                  .addition(image: image[0]);
+                            },
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                child: profile.userImage != ""
+                                    ? state.image == null
+                                        ? ClipOval(
+                                            child: Image.network(
+                                              // state.image!,
+                                              AppUrls.baseUrl + imagepath,
                                               cacheHeight: 100,
                                               cacheWidth: 100,
-                                              "${AppUrls.baseUrl}/media/emptyimage/no_image_user.png"),
-                                        )),
+                                              // cacheHeight: 100,
+                                              // fit: BoxFit.,
+                                            ),
+                                          )
+                                        : ClipOval(
+                                            child: Image.file(
+                                              state.image!,
+                                              cacheHeight: 100,
+                                              cacheWidth: 100,
+                                              // cacheHeight: 100,
+                                              // fit: BoxFit.,
+                                            ),
+                                          )
+                                    : state.image != null
+                                        ? ClipOval(
+                                            child: Image.file(
+                                              state.image!,
+                                              cacheHeight: 100,
+                                              cacheWidth: 100,
+                                              // cacheHeight: 100,
+                                              // fit: BoxFit.,
+                                            ),
+                                          )
+                                        : ClipOval(
+                                            child: Image.network(
+                                                cacheHeight: 100,
+                                                cacheWidth: 100,
+                                                "${AppUrls.baseUrl}/media/emptyimage/no_image_user.png"),
+                                          )),
+                          );
+                        },
+                      ),
+
+                      // Image.network(
+                      //   ServerUrl.ipaddress() + imagepath,
+                      //   height: 100,
+                      // ),
+                      // GestureDetector(
+                      //   onTap: () {}, //make select image here
+                      //   child: CircleAvatar(
+                      //       radius: MediaQuery.of(context).size.width / 5,
+                      //       backgroundImage: const AssetImage(
+                      //           'assets/images/defaults/no_image_user.png')),
+                      // ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  buildTextField(context, "Firstname", "enter a firstname",
+                      firstNameController, false),
+                  buildTextField(context, "Lastname", "enter a lastname",
+                      lastNameController, false),
+                  buildTextField(context, "Username", "enter a username",
+                      userNameController, false),
+                  buildTextField(context, "Address", "enter an address",
+                      addressController, false),
+                  buildTextField(context, "Email Address", "enter an email",
+                      emailAddressController, true),
+                  buildTextField(context, "Phone Number",
+                      "enter a phone number", phoneNumberController, false),
+                  profile.businessName != ""
+                      ? buildTextField(context, "Business Name",
+                          "Business Name", businessNameController, false)
+                      : Container(),
+                  profile.businessName != ""
+                      ? buildTextField(context, "Business Description",
+                          "Business Description", businessDescController, false)
+                      : Container(),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: BlocBuilder<EditProfileBloc, EditProfileState>(
+                      builder: (context, state) {
+                        return CustomElevatedButton(
+                          isLoading: state is EditProfileLoading,
+                          text: "Update",
+                          onPressed: () {
+                            context.read<EditProfileBloc>().add(
+                                UpdateProfileEvent(
+                                    lastname: lastNameController.text.trim(),
+                                    firstname: firstNameController.text.trim(),
+                                    contact: phoneNumberController.text.trim(),
+                                    location: addressController.text.trim(),
+                                    username: userNameController.text.trim(),
+                                    image: imageFile,
+                                    name: businessNameController.text.trim(),
+                                    description:
+                                        businessDescController.text.trim()));
+
+                            final HomeBloc homebloc = HomeBloc();
+                            homebloc.add(HomePageOpened());
+                          },
                         );
                       },
                     ),
-
-                    // Image.network(
-                    //   ServerUrl.ipaddress() + imagepath,
-                    //   height: 100,
-                    // ),
-                    // GestureDetector(
-                    //   onTap: () {}, //make select image here
-                    //   child: CircleAvatar(
-                    //       radius: MediaQuery.of(context).size.width / 5,
-                    //       backgroundImage: const AssetImage(
-                    //           'assets/images/defaults/no_image_user.png')),
-                    // ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                buildTextField(context, "Firstname", "enter a firstname",
-                    firstNameController, false),
-                buildTextField(context, "Lastname", "enter a lastname",
-                    lastNameController, false),
-                buildTextField(context, "Username", "enter a username",
-                    userNameController, false),
-                buildTextField(context, "Address", "enter an address",
-                    addressController, false),
-                buildTextField(context, "Email Address", "enter an email",
-                    emailAddressController, true),
-                buildTextField(context, "Phone Number", "enter a phone number",
-                    phoneNumberController, false),
-                profile.businessName != ""
-                    ? buildTextField(context, "Business Name", "Business Name",
-                        businessNameController, false)
-                    : Container(),
-                profile.businessName != ""
-                    ? buildTextField(context, "Business Description",
-                        "Business Description", businessDescController, false)
-                    : Container(),
-                const SizedBox(height: 20),
-                Center(
-                  child: CustomElevatedButton(
-                    text: "Update",
-                    onPressed: () {
-                      context.read<EditProfileBloc>().add(UpdateProfileEvent(
-                          lastname: lastNameController.text.trim(),
-                          firstname: firstNameController.text.trim(),
-                          contact: phoneNumberController.text.trim(),
-                          location: addressController.text.trim(),
-                          username: userNameController.text.trim(),
-                          image: imageFile,
-                          name: businessNameController.text.trim(),
-                          description: businessDescController.text.trim()));
-
-                      final HomeBloc homebloc = HomeBloc();
-                      homebloc.add(HomePageOpened());
-
-                      MySnackbar.show(
-                        context,
-                        title: "Profile Updated Successfully",
-                        message: "Your profile has been updated successfully.",
-                        type: SnackbarType.success,
-                      );
-
-                      Navigator.push(
-                          context,
-                          GeneratedRoute().onGeneratedRoute(
-                            RouteSettings(name: '/home'),
-                          ));
-                    },
                   ),
-                ),
-                const SizedBox(height: 40),
-              ],
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
-          ),
-        )));
+          )),
+        ));
   }
 
   Column buildTextField(BuildContext context, String text, String textHint,

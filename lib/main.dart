@@ -8,6 +8,7 @@ import 'package:serophero/features/authentications/data/login/login_repo.dart';
 import 'package:serophero/features/authentications/login.dart';
 import 'package:serophero/features/business/bloc/directories_bloc.dart';
 import 'package:serophero/features/chat/bloc/chat_list_bloc.dart';
+import 'package:serophero/features/chat/bloc/individual_chat_bloc/individual_chat_bloc.dart';
 import 'package:serophero/features/events/bloc/event_bloc.dart';
 import 'package:serophero/features/home/bloc/home_bloc.dart';
 import 'package:serophero/features/home/navigation.dart';
@@ -19,7 +20,7 @@ import 'package:serophero/features/profile/bloc/edit_profile_bloc.dart';
 import 'package:serophero/features/profile/cubit/image_cubit.dart';
 import 'package:serophero/features/reports/bloc/report_bloc.dart';
 import 'package:serophero/utils/notification_services.dart';
-import 'package:serophero/suggestions/bloc/suggestions_bloc.dart';
+import 'package:serophero/features/suggestions/bloc/suggestions_bloc.dart';
 import 'package:serophero/themes/theme_provider.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:flutter/material.dart';
@@ -158,6 +159,10 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider(
             create: (context) => PersonalNewsBloc(),
+            child: Container(),
+          ),
+          BlocProvider(
+            create: (context) => IndividualChatBloc(),
             child: Container(),
           )
         ],

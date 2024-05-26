@@ -54,90 +54,107 @@ class _NewsListState extends State<NewsList> {
         } else if (state is NewsListSuccess) {
           return Scaffold(
             body: SafeArea(
-              child: Column(
-                children: [
-                  Column(
-                    children: state.newslist.map((news) {
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  GeneratedRoute().onGeneratedRoute(
-                                    RouteSettings(
-                                        arguments: {'news': news},
-                                        name: '/view_news'),
-                                  ));
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: SingleChildScrollView(
+                // physics: const AlwaysScrollableScrollPhysics(),
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    newslistbloc.add(NewsPageOPened());
+                  },
+                  child: Column(
+                    children: [
+                      RefreshIndicator(
+                        onRefresh: () async {
+                          newslistbloc.add(NewsPageOPened());
+                        },
+                        child: Column(
+                          children: state.newslist.map((news) {
+                            return Column(
                               children: [
-                                // Container for the image
-                                Container(
-                                  height: 120,
-                                  width: 120,
-                                  alignment: Alignment.center,
-                                  child: Image.network(
-                                      "${AppUrls.baseUrl}/${news.newsImage}"),
-                                ),
-
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        GeneratedRoute().onGeneratedRoute(
+                                          RouteSettings(
+                                              arguments: {'news': news},
+                                              name: '/view_news'),
+                                        ));
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      // News title text
-                                      Text(
-                                        news.newsTitle,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.normal),
+                                      // Container for the image
+                                      Container(
+                                        height: 120,
+                                        width: 120,
+                                        alignment: Alignment.center,
+                                        child: Image.network(
+                                            "${AppUrls.baseUrl}/${news.newsImage}"),
                                       ),
 
-                                      // Description text for events
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                1.45,
-                                        child: Text(
-                                          news.newsDescription,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 3,
-                                          softWrap: true,
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          padding:
-                                              const EdgeInsets.only(top: 8),
-                                          margin:
-                                              const EdgeInsets.only(right: 8.0),
-                                          child: Text(
-                                            DateTimeUtils.formatRelativeTime(
-                                                news.newsDate),
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.grey),
-                                          ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // News title text
+                                            Text(
+                                              news.newsTitle,
+                                              style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
+
+                                            // Description text for events
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  1.45,
+                                              child: Text(
+                                                news.newsDescription,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 3,
+                                                softWrap: true,
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.bottomRight,
+                                              child: Container(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8),
+                                                margin: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: Text(
+                                                  DateTimeUtils
+                                                      .formatRelativeTime(
+                                                          news.newsDate),
+                                                  style: const TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.grey),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                                const SizedBox(height: 10),
                               ],
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      );
-                    }).toList(),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           );

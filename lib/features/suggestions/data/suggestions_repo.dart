@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:serophero/constants/app_urls.dart';
-import 'package:serophero/suggestions/data/suggestions_model.dart';
+import 'package:serophero/features/suggestions/data/suggestions_model.dart';
 import 'package:serophero/utils/shared_preferences.dart';
 
 class SuggestionsRepo {

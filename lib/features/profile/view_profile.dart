@@ -109,21 +109,32 @@ class _ViewProfileState extends State<ViewProfile> {
                           ),
                         ),
                         const Spacer(),
-                        Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width / 7.4,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer),
-                          child: Center(
-                            child: Image(
-                                height: 22,
-                                width: 22,
-                                color: Theme.of(context).colorScheme.tertiary,
-                                image: const AssetImage(
-                                    "assets/logos/chat_filled.png")),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                GeneratedRoute().onGeneratedRoute(
+                                  RouteSettings(arguments: {
+                                    "userId": state.user_data.userId
+                                  }, name: '/chat_page'),
+                                ));
+                          },
+                          child: Container(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width / 7.4,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer),
+                            child: Center(
+                              child: Image(
+                                  height: 22,
+                                  width: 22,
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                  image: const AssetImage(
+                                      "assets/logos/chat_filled.png")),
+                            ),
                           ),
                         ),
                         const Spacer(),

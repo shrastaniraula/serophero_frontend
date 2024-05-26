@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:serophero/suggestions/bloc/suggestions_bloc.dart';
+import 'package:serophero/features/suggestions/bloc/suggestions_bloc.dart';
 import 'package:serophero/widgets/custom_elevated_button.dart';
 import 'package:serophero/widgets/custom_textfield.dart';
 import 'package:serophero/widgets/snackbar.dart';

@@ -37,8 +37,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           }
         } else {
           print(error);
-          emit(SignupFailure(
-              error: "Please enter valid email."));
+          emit(SignupFailure(error: "Please enter valid email."));
         }
       }
     } else if (event is ForgotPassEmailClicked) {
@@ -64,8 +63,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           }
         } else {
           print(error);
-          emit(SignupFailure(
-              error: "Please enter a valid email."));
+          emit(SignupFailure(error: "Please enter a valid email."));
         }
       }
     }
